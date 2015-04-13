@@ -9,6 +9,5 @@ Gem::Specification.new do |s|
   s.test_files = []
 
   s.add_development_dependency('rspec', '~> 3.2')
-  s.add_development_dependency('rubocop', '~> 0.30')
   s.add_development_dependency('webmock', '~> 1.21')
 end

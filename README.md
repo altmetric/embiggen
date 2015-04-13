@@ -1,4 +1,4 @@
-# Embiggener
+# Embiggener [![Build Status](https://travis-ci.org/altmetric/embiggener.svg?branch=master)](https://travis-ci.org/altmetric/embiggener)
 
 A Ruby library to expand shortened URLs.
 

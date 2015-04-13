@@ -1,7 +1,10 @@
 require 'rspec/core/rake_task'
-require 'rubocop/rake_task'
-
 RSpec::Core::RakeTask.new(:spec)
-RuboCop::RakeTask.new
+task :default => :spec
 
-task :default => [:rubocop, :spec]
+begin
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+  Rake::Task[:default].enhance([:rubocop])
+rescue LoadError
+end

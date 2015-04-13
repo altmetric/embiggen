@@ -1,6 +1,16 @@
 Style/Documentation:
   Enabled: false
 
+# Due to the URI() helper
+Style/MethodName:
+  Exclude:
+    - lib/embiggener.rb
+
+# Due to conditional loading of Rubocop
+Lint/HandleExceptions:
+  Exclude:
+    - Rakefile
+
 # For Ruby 1.8 compatibility
 Style/DotPosition:
   EnforcedStyle: trailing
