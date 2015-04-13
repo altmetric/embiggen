@@ -5,8 +5,12 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
   s.authors = ['Paul Mucur']
   s.homepage = 'https://github.com/altmetric/embiggener'
-  s.files = []
-  s.test_files = []
+  s.files = %w(lib/embiggener.rb lib/embiggener/uri.rb)
+  s.test_files = %w(
+    spec/spec_helper.rb
+    spec/embiggener_spec.rb
+    spec/embiggener/uri_spec.rb
+  )
 
   s.add_development_dependency('rspec', '~> 3.2')
   s.add_development_dependency('webmock', '~> 1.21')
