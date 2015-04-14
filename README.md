@@ -4,19 +4,25 @@ A Ruby library to expand shortened URLs.
 
 ## Usage
 ```ruby
-require 'embiggen/uri'
+require 'embiggen'
 
+# Basic usage
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
+# => URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
+
+# Longer-form usage
 uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
 uri.shortened?
 # => true
 uri.expand
-# => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+# => URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
 
+# Gracefully deals with unshortened URIs
 uri = Embiggen::URI.new(URI('http://www.altmetric.com'))
 uri.shortened?
 # => false
 uri.expand
-#=> 'http://www.altmetric.com'
+#=> URI('http://www.altmetric.com')
 ```
 
 ## Acknowledgements
