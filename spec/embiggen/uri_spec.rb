@@ -111,8 +111,17 @@ module Embiggen
         expect(uri.expand).to eq(URI('http://bit.ly/3'))
       end
 
+      it 'uses shorteners from the configuration' do
+        stub_redirect('http://altmetric.it', 'http://www.altmetric.com')
+        Configuration.shorteners << 'altmetric.it'
+        uri = described_class.new(URI('http://altmetric.it'))
+
+        expect(uri.expand).to eq(URI('http://www.altmetric.com'))
+      end
+
       after do
         Configuration.redirects = 5
+        Configuration.shorteners.delete('altmetric.it')
       end
     end
 

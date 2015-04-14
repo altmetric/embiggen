@@ -6,6 +6,11 @@ Style/MethodName:
   Exclude:
     - lib/embiggen.rb
 
+# Due to the shorteners list
+Metrics/MethodLength:
+  Exclude:
+    - lib/embiggen/configuration.rb
+
 # Due to conditional loading of Rubocop
 Lint/HandleExceptions:
   Exclude:
