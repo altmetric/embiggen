@@ -6,11 +6,7 @@ module Embiggen
     attr_reader :uri
 
     def initialize(uri)
-      @uri = if uri.is_a?(::URI::Generic)
-               uri
-             else
-               ::URI.parse(uri.to_s)
-             end
+      @uri = uri.is_a?(::URI::Generic) ? uri : URI(uri.to_s)
     end
 
     def expand(request_options = {})

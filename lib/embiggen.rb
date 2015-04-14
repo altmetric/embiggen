@@ -3,11 +3,7 @@ require 'embiggen/uri'
 
 module Embiggen
   def URI(uri)
-    if uri.is_a?(URI)
-      uri
-    else
-      URI.new(uri)
-    end
+    uri.is_a?(URI) ? uri : URI.new(uri)
   end
 
   def configure
