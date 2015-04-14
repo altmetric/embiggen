@@ -14,16 +14,24 @@ module Embiggen
     end
 
     def expand(request_options = {})
+      expand!(request_options)
+    rescue TooManyRedirects => error
+      error.uri
+    rescue Error, ::Timeout::Error, ::Errno::ECONNRESET
+      uri
+    end
+
+    def expand!(request_options = {})
+      return uri unless shortened?
+
       redirects = request_options.fetch(:redirects) { Configuration.redirects }
-      return uri if !shortened? || redirects.zero?
+      check_redirects(redirects)
 
       location = head_location(request_options)
-      return uri unless location
+      check_location(location)
 
       URI.new(location).
-        expand(request_options.merge(:redirects => redirects - 1))
-    rescue ::Timeout::Error, ::Errno::ECONNRESET
-      uri
+        expand!(request_options.merge(:redirects => redirects - 1))
     end
 
     def shortened?
@@ -31,6 +39,18 @@ module Embiggen
     end
 
     private
+
+    def check_redirects(redirects)
+      return unless redirects.zero?
+
+      fail TooManyRedirects.new("#{uri} redirected too many times", uri)
+    end
+
+    def check_location(location)
+      return if location
+
+      fail BadShortenedURI, "following #{uri} did not redirect"
+    end
 
     def head_location(request_options = {})
       timeout = request_options.fetch(:timeout) { Configuration.timeout }
@@ -48,6 +68,18 @@ module Embiggen
       http.use_ssl = true if uri.scheme == 'https'
 
       http
+    end
+  end
+
+  class Error < ::StandardError; end
+  class BadShortenedURI < Error; end
+
+  class TooManyRedirects < Error
+    attr_reader :uri
+
+    def initialize(message, uri)
+      super(message)
+      @uri = uri
     end
   end
 end

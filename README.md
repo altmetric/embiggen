@@ -24,6 +24,12 @@ uri.shortened?
 uri.expand
 #=> #<URI:HTTP http://www.altmetric.com>
 
+# Noisier expand! for explicit error handling
+Embiggen::URI('http://bit.ly/bad').expand!
+#=> TooManyRedirects: http://bit.ly/bad redirected too many times
+# or...
+#=> BadShortenedURI: following http://bit.ly/bad did not redirect
+
 # Optionally specify a timeout in seconds for expansion (default is 1)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)
 
