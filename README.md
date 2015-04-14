@@ -8,21 +8,24 @@ require 'embiggen'
 
 # Basic usage
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-# => URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
+#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
 # Longer-form usage
 uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
 uri.shortened?
-# => true
+#=> true
 uri.expand
-# => URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
+#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
 # Gracefully deals with unshortened URIs
-uri = Embiggen::URI.new(URI('http://www.altmetric.com'))
+uri = Embiggen::URI('http://www.altmetric.com')
 uri.shortened?
-# => false
+#=> false
 uri.expand
-#=> URI('http://www.altmetric.com')
+#=> #<URI:HTTP http://www.altmetric.com>
+
+# Optionally specify a timeout in seconds for expansion
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)
 ```
 
 ## Acknowledgements

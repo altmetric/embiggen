@@ -13,10 +13,10 @@ module Embiggen
              end
     end
 
-    def expand
+    def expand(request_options = {})
       return uri unless shortened?
 
-      response = head_request
+      response = head_request(request_options)
 
       if response.is_a?(::Net::HTTPRedirection)
         ::URI.parse(response.fetch('Location'))
@@ -33,11 +33,20 @@ module Embiggen
 
     private
 
-    def head_request
+    def head_request(request_options = {})
+      timeout = request_options.fetch(:timeout) { 1 }
+
+      http.open_timeout = timeout
+      http.read_timeout = timeout
+
+      http.head(uri.request_uri)
+    end
+
+    def http
       http = ::Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == 'https'
 
-      http.head(uri.request_uri)
+      http
     end
 
     # From http://longurl.org/services

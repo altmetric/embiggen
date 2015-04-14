@@ -61,6 +61,13 @@ RSpec.describe Embiggen::URI do
 
       expect(uri.expand).to eq(URI('http://bit.ly/bad'))
     end
+
+    it 'takes an optional timeout' do
+      stub_request(:head, 'http://bit.ly/bad').to_timeout
+      uri = described_class.new(URI('http://bit.ly/bad'))
+
+      expect(uri.expand(:timeout => 5)).to eq(URI('http://bit.ly/bad'))
+    end
   end
 
   describe '#uri' do
