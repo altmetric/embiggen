@@ -24,8 +24,11 @@ uri.shortened?
 uri.expand
 #=> #<URI:HTTP http://www.altmetric.com>
 
-# Optionally specify a timeout in seconds for expansion
+# Optionally specify a timeout in seconds for expansion (default is 1)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)
+
+# Optionally specify a number of redirects to follow (default is 5)
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:redirects => 2)
 ```
 
 ## Acknowledgements

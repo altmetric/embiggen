@@ -14,15 +14,14 @@ module Embiggen
     end
 
     def expand(request_options = {})
-      return uri unless shortened?
+      redirects = request_options.fetch(:redirects) { 5 }
+      return uri if !shortened? || redirects.zero?
 
-      response = head_request(request_options)
+      location = head_location(request_options)
+      return uri unless location
 
-      if response.is_a?(::Net::HTTPRedirection)
-        ::URI.parse(response.fetch('Location'))
-      else
-        uri
-      end
+      URI.new(location).
+        expand(request_options.merge(:redirects => redirects - 1))
     rescue ::Timeout::Error, ::Errno::ECONNRESET
       uri
     end
@@ -33,13 +32,15 @@ module Embiggen
 
     private
 
-    def head_request(request_options = {})
+    def head_location(request_options = {})
       timeout = request_options.fetch(:timeout) { 1 }
 
       http.open_timeout = timeout
       http.read_timeout = timeout
 
-      http.head(uri.request_uri)
+      response = http.head(uri.request_uri)
+
+      response.fetch('Location') if response.is_a?(::Net::HTTPRedirection)
     end
 
     def http

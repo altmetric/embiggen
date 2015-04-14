@@ -68,6 +68,37 @@ RSpec.describe Embiggen::URI do
 
       expect(uri.expand(:timeout => 5)).to eq(URI('http://bit.ly/bad'))
     end
+
+    it 'expands redirects to other shorteners' do
+      stub_redirect('http://bit.ly/98K8eH',
+                    'https://youtu.be/dQw4w9WgXcQ')
+      stub_redirect('https://youtu.be/dQw4w9WgXcQ',
+                    'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
+      uri = described_class.new(URI('http://bit.ly/98K8eH'))
+
+      expect(uri.expand).to eq(URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'))
+    end
+
+    it 'stops expanding redirects after a default threshold of 5' do
+      stub_redirect('http://bit.ly/1', 'http://bit.ly/2')
+      stub_redirect('http://bit.ly/2', 'http://bit.ly/3')
+      stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
+      stub_redirect('http://bit.ly/4', 'http://bit.ly/5')
+      stub_redirect('http://bit.ly/5', 'http://bit.ly/6')
+      stub_redirect('http://bit.ly/6', 'http://bit.ly/7')
+      uri = described_class.new(URI('http://bit.ly/1'))
+
+      expect(uri.expand).to eq(URI('http://bit.ly/6'))
+    end
+
+    it 'takes an optional redirect threshold' do
+      stub_redirect('http://bit.ly/1', 'http://bit.ly/2')
+      stub_redirect('http://bit.ly/2', 'http://bit.ly/3')
+      stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
+      uri = described_class.new(URI('http://bit.ly/1'))
+
+      expect(uri.expand(:redirects => 2)).to eq(URI('http://bit.ly/3'))
+    end
   end
 
   describe '#uri' do
