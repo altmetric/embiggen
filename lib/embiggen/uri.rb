@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'net/http'
 
-module Embiggener
+module Embiggen
   class URI
     attr_reader :uri
 

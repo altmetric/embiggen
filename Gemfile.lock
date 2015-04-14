@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    embiggener (0.1.0)
+    embiggen (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -47,7 +47,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  embiggener!
+  embiggen!
   rake (~> 10.4)
   rspec (~> 3.2)
   rubocop (~> 0.30)

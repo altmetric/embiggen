@@ -1,6 +1,6 @@
-require 'embiggener/uri'
+require 'embiggen/uri'
 
-module Embiggener
+module Embiggen
   def URI(uri)
     if uri.is_a?(URI)
       uri

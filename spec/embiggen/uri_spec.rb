@@ -1,6 +1,6 @@
-require 'embiggener'
+require 'embiggen'
 
-RSpec.describe Embiggener::URI do
+RSpec.describe Embiggen::URI do
   describe '#expand' do
     it 'expands HTTP URIs' do
       stub_redirect('http://bit.ly/1ciyUPh',

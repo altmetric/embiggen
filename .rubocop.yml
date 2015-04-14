@@ -4,7 +4,7 @@ Style/Documentation:
 # Due to the URI() helper
 Style/MethodName:
   Exclude:
-    - lib/embiggener.rb
+    - lib/embiggen.rb
 
 # Due to conditional loading of Rubocop
 Lint/HandleExceptions:

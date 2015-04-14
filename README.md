@@ -1,18 +1,18 @@
-# Embiggener [![Build Status](https://travis-ci.org/altmetric/embiggener.svg?branch=master)](https://travis-ci.org/altmetric/embiggener)
+# Embiggen [![Build Status](https://travis-ci.org/altmetric/embiggen.svg?branch=master)](https://travis-ci.org/altmetric/embiggen)
 
 A Ruby library to expand shortened URLs.
 
 ## Usage
 ```ruby
-require 'embiggener/uri'
+require 'embiggen/uri'
 
-uri = Embiggener::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
+uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
 uri.shortened?
 # => true
 uri.expand
 # => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'
 
-uri = Embiggener::URI.new(URI('http://www.altmetric.com'))
+uri = Embiggen::URI.new(URI('http://www.altmetric.com'))
 uri.shortened?
 # => false
 uri.expand
