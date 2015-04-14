@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'embiggen/configuration'
 require 'net/http'
 
 module Embiggen
@@ -14,7 +15,7 @@ module Embiggen
     end
 
     def expand(request_options = {})
-      redirects = request_options.fetch(:redirects) { 5 }
+      redirects = request_options.fetch(:redirects) { Configuration.redirects }
       return uri if !shortened? || redirects.zero?
 
       location = head_location(request_options)
@@ -33,7 +34,7 @@ module Embiggen
     private
 
     def head_location(request_options = {})
-      timeout = request_options.fetch(:timeout) { 1 }
+      timeout = request_options.fetch(:timeout) { Configuration.timeout }
 
       http.open_timeout = timeout
       http.read_timeout = timeout

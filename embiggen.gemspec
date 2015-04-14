@@ -5,11 +5,16 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
   s.authors = ['Paul Mucur']
   s.homepage = 'https://github.com/altmetric/embiggen'
-  s.files = %w(lib/embiggen.rb lib/embiggen/uri.rb)
+  s.files = %w(
+    lib/embiggen.rb
+    lib/embiggen/uri.rb
+    lib/embiggen/configuration.rb
+  )
   s.test_files = %w(
     spec/spec_helper.rb
     spec/embiggen_spec.rb
     spec/embiggen/uri_spec.rb
+    spec/embiggen/configuration_spec.rb
   )
 
   s.add_development_dependency('rspec', '~> 3.2')

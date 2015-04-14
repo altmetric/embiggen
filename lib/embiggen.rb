@@ -1,3 +1,4 @@
+require 'embiggen/configuration'
 require 'embiggen/uri'
 
 module Embiggen
@@ -9,5 +10,9 @@ module Embiggen
     end
   end
 
-  module_function :URI
+  def configure
+    yield(Configuration)
+  end
+
+  module_function :URI, :configure
 end

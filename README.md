@@ -29,6 +29,12 @@ Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)
 
 # Optionally specify a number of redirects to follow (default is 5)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:redirects => 2)
+
+# Override the default configuration for all expansions
+Embiggen.configure do |config|
+  config.timeout = 5
+  config.redirects = 2
+end
 ```
 
 ## Acknowledgements
