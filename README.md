@@ -60,9 +60,24 @@ Embiggen.configure do |config|
 end
 ```
 
+## Shorteners
+
+Embiggen ships with a default list of URL shortening service domains (c.f.
+[Acknowledgements](#acknowledgements)) but as it is likely to be outdated and
+incomplete, you are strongly encouraged to supply your own via
+`Embiggen.configure`:
+
+```ruby
+Embiggen.configure do |config|
+  config.shorteners = %w(myshorten.er anoth.er)
+  # or load from a file...
+  config.shorteners = File.readlines('shorteners.txt').map(&:chomp)
+end
+```
+
 ## Acknowledgements
 
-* The list of shorteners comes from [LongURL.org's curated
+* The default list of shorteners comes from [LongURL.org's curated
   list](http://longurl.org/services).
 
 ## License
