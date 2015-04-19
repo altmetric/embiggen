@@ -1,5 +1,7 @@
 require 'embiggen/embiggened_uri'
 require 'embiggen/configuration'
+require 'embiggen/too_many_redirects'
+require 'embiggen/bad_shortened_uri'
 require 'net/http'
 
 module Embiggen
@@ -15,7 +17,7 @@ module Embiggen
 
       follow_redirects(request_options)
     rescue ::Timeout::Error, ::Errno::ECONNRESET => e
-      EmbiggenedURI.failure(uri, e.message)
+      EmbiggenedURI.failure(uri, e)
     end
 
     def expand!(request_options = {})
@@ -41,23 +43,20 @@ module Embiggen
 
     def follow_redirects(request_options = {})
       redirects = request_options.fetch(:redirects) { Configuration.redirects }
-      return EmbiggenedURI.failure(uri) if redirects.zero?
+      return too_many_redirects if redirects.zero?
 
       location = head_location(request_options)
-      return EmbiggenedURI.failure(uri, "following #{uri} did not " \
-                                        'redirect') unless location
+      return bad_shortened_uri unless location
 
       location.expand(request_options.merge(:redirects => redirects - 1))
     end
 
     def follow_redirects!(request_options = {})
       redirects = request_options.fetch(:redirects) { Configuration.redirects }
-      fail TooManyRedirects, "#{uri} redirected too many " \
-                             'times' if redirects.zero?
+      fail TooManyRedirects.for(uri) if redirects.zero?
 
       location = head_location(request_options)
-      fail BadShortenedURI, "following #{uri} did not " \
-                            'redirect' unless location
+      fail BadShortenedURI.for(uri) unless location
 
       location.expand!(request_options.merge(:redirects => redirects - 1))
     end
@@ -80,9 +79,13 @@ module Embiggen
 
       http
     end
-  end
 
-  class Error < ::StandardError; end
-  class BadShortenedURI < Error; end
-  class TooManyRedirects < Error; end
+    def too_many_redirects
+      EmbiggenedURI.failure(uri, TooManyRedirects.for(uri))
+    end
+
+    def bad_shortened_uri
+      EmbiggenedURI.failure(uri, BadShortenedURI.for(uri))
+    end
+  end
 end

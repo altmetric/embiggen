@@ -50,10 +50,12 @@ uri.success?
 # If there weren't successful, you can ask them why
 uri.success?
 #=> false
-uri.reason
-#=> 'following https://youtu.be/dQw4w9WgXcQ did not redirect'
+uri.error
+#=> #<Embiggen::TooManyRedirects ...>
 # or
-#=> 'https://youtu.be/dQw4w9WgXcQ redirected too many times'
+#=> #<Embiggen::BadShortenedURI ...>
+# or
+#=> #<Timeout::Error ...>
 
 # Before expansion, you can check whether a URI is shortened or not
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').shortened?

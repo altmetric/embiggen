@@ -17,12 +17,19 @@ module Embiggen
         expect(failed_uri).to_not be_success
       end
 
-      it 'takes an optional reason for failure' do
+      it 'takes an optional cause for failure' do
         uri = URI.new('http://bit.ly/bad')
-        failed_uri = described_class.failure(uri, 'something went wrong')
+        error = Error.new('whoops')
+        failed_uri = described_class.failure(uri, error)
 
-        expect(failed_uri.reason).to eq('something went wrong')
+        expect(failed_uri.error).to eq(error)
       end
+    end
+
+    it 'defaults to being successful if there is no error' do
+      uri = described_class.new(URI('http://www.altmetric.com'))
+
+      expect(uri).to be_success
     end
 
     describe '#uri' do
