@@ -22,16 +22,41 @@ gem 'embiggen', '~> 0.1'
 require 'embiggen'
 
 # Basic usage
-Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
+uri = Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
 #=> #<Embiggen::EmbiggenedURI https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
-# Longer-form usage
-uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
-uri.shortened?
+# EmbiggenedURIs can be used much like standard URIs
+uri.to_s
+#=> 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+uri.host
+#=> 'www.youtube.com'
+uri.path
+#=> '/watch'
+uri.query
+#=> 'v=dQw4w9WgXcQ&feature=youtu.be'
+uri.request_uri
+#=> '/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+uri.scheme
+#=> 'https'
+
+# Or you can get an actual standard library URI instance out of them
+uri.uri
+#=> #<URI::HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+
+# You can interrogate them to see if they expanded successfully
+uri.success?
 #=> true
-expanded_uri = uri.expand
-#=> #<Embiggen::EmbiggenedURI https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
-expanded_uri.success?
+
+# If there weren't successful, you can ask them why
+uri.success?
+#=> false
+uri.reason
+#=> 'following https://youtu.be/dQw4w9WgXcQ did not redirect'
+# or
+#=> 'https://youtu.be/dQw4w9WgXcQ redirected too many times'
+
+# Before expansion, you can check whether a URI is shortened or not
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').shortened?
 #=> true
 
 # Gracefully deals with unshortened URIs
@@ -40,19 +65,6 @@ uri.shortened?
 #=> false
 uri.expand
 #=> #<Embiggen::EmbiggenedURI http://www.altmetric.com>
-
-# Gracefully deals with errors
-uri = Embiggen::URI('http://examp.le/badlink').expand
-#=> #<Embiggen::EmbiggenedURI http://examp.le/badlink>
-uri.success?
-#=> false
-uri.reason
-#=> 'following http://examp.le/badlink did not redirect'
-
-uri = Embiggen::URI('http://examp.le/loop').expand
-#=> #<Embiggen::EmbiggenedURI http://examp.le/loop>
-uri.reason
-#=> 'http://examp.le/loop redirected too many times'
 
 # Optionally specify a timeout in seconds for expansion (default is 1)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)

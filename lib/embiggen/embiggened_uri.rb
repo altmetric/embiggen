@@ -1,9 +1,12 @@
-require 'delegate'
+require 'forwardable'
 
 module Embiggen
-  class EmbiggenedURI < SimpleDelegator
-    attr_reader :success, :reason
+  class EmbiggenedURI
+    extend Forwardable
+    attr_reader :uri, :success, :reason
     alias_method :success?, :success
+    def_delegators :uri, :to_s, :fragment, :host, :path, :port, :query,
+                   :scheme, :request_uri
 
     def self.success(uri)
       new(uri, :success => true)
@@ -14,7 +17,7 @@ module Embiggen
     end
 
     def initialize(uri, options = {})
-      super(uri)
+      @uri = uri
       @success = options.fetch(:success)
       @reason = options[:reason]
     end

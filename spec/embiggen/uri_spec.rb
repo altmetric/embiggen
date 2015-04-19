@@ -9,7 +9,7 @@ module Embiggen
 
         uri = described_class.new(URI('http://bit.ly/1ciyUPh'))
 
-        expect(uri.expand).to eq(URI('http://us.macmillan.com/books/9781466879980'))
+        expect(uri.expand).to embiggen_to(URI('http://us.macmillan.com/books/9781466879980'))
       end
 
       it 'marks expanded URIs as successful' do
@@ -27,7 +27,7 @@ module Embiggen
 
         uri = described_class.new(URI('https://youtu.be/dQw4w9WgXcQ'))
 
-        expect(uri.expand).to eq(URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'))
+        expect(uri.expand).to embiggen_to(URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'))
       end
 
       it 'expands URIs passed as strings' do
@@ -36,13 +36,13 @@ module Embiggen
 
         uri = described_class.new('http://bit.ly/1ciyUPh')
 
-        expect(uri.expand).to eq(URI('http://us.macmillan.com/books/9781466879980'))
+        expect(uri.expand).to embiggen_to(URI('http://us.macmillan.com/books/9781466879980'))
       end
 
       it 'does not expand unshortened URIs' do
         uri = described_class.new(URI('http://www.altmetric.com'))
 
-        expect(uri.expand).to eq(URI('http://www.altmetric.com'))
+        expect(uri.expand).to embiggen_to(URI('http://www.altmetric.com'))
       end
 
       it 'does not make requests for unshortened URIs' do
@@ -55,7 +55,7 @@ module Embiggen
         stub_request(:head, 'http://bit.ly/bad').to_return(:status => 500)
         uri = described_class.new(URI('http://bit.ly/bad'))
 
-        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+        expect(uri.expand).to embiggen_to(URI('http://bit.ly/bad'))
       end
 
       it 'marks erroring URIs as unsuccessful' do
@@ -69,7 +69,7 @@ module Embiggen
         stub_request(:head, 'http://bit.ly/bad').to_timeout
         uri = described_class.new(URI('http://bit.ly/bad'))
 
-        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+        expect(uri.expand).to embiggen_to(URI('http://bit.ly/bad'))
       end
 
       it 'marks timed out URIs as unsuccessful' do
@@ -83,7 +83,7 @@ module Embiggen
         stub_request(:head, 'http://bit.ly/bad').to_raise(Errno::ECONNRESET)
         uri = described_class.new(URI('http://bit.ly/bad'))
 
-        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+        expect(uri.expand).to embiggen_to(URI('http://bit.ly/bad'))
       end
 
       it 'marks URIs whose connection resets as unsuccessful' do
@@ -97,7 +97,7 @@ module Embiggen
         stub_request(:head, 'http://bit.ly/bad').to_timeout
         uri = described_class.new(URI('http://bit.ly/bad'))
 
-        expect(uri.expand(:timeout => 5)).to eq(URI('http://bit.ly/bad'))
+        expect(uri.expand(:timeout => 5)).to embiggen_to(URI('http://bit.ly/bad'))
       end
 
       it 'expands redirects to other shorteners' do
@@ -107,7 +107,7 @@ module Embiggen
                       'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
         uri = described_class.new(URI('http://bit.ly/98K8eH'))
 
-        expect(uri.expand).to eq(URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'))
+        expect(uri.expand).to embiggen_to(URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'))
       end
 
       it 'stops expanding redirects after a default threshold of 5' do
@@ -119,7 +119,7 @@ module Embiggen
         stub_redirect('http://bit.ly/6', 'http://bit.ly/7')
         uri = described_class.new(URI('http://bit.ly/1'))
 
-        expect(uri.expand).to eq(URI('http://bit.ly/6'))
+        expect(uri.expand).to embiggen_to(URI('http://bit.ly/6'))
       end
 
       it 'takes an optional redirect threshold' do
@@ -128,7 +128,7 @@ module Embiggen
         stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
         uri = described_class.new(URI('http://bit.ly/1'))
 
-        expect(uri.expand(:redirects => 2)).to eq(URI('http://bit.ly/3'))
+        expect(uri.expand(:redirects => 2)).to embiggen_to(URI('http://bit.ly/3'))
       end
 
       it 'uses the threshold from the configuration' do
@@ -138,7 +138,7 @@ module Embiggen
         uri = described_class.new(URI('http://bit.ly/1'))
         Configuration.redirects = 2
 
-        expect(uri.expand).to eq(URI('http://bit.ly/3'))
+        expect(uri.expand).to embiggen_to(URI('http://bit.ly/3'))
       end
 
       it 'uses shorteners from the configuration' do
@@ -146,7 +146,7 @@ module Embiggen
         Configuration.shorteners << 'altmetric.it'
         uri = described_class.new(URI('http://altmetric.it'))
 
-        expect(uri.expand).to eq(URI('http://www.altmetric.com'))
+        expect(uri.expand).to embiggen_to(URI('http://www.altmetric.com'))
       end
 
       after do
@@ -163,13 +163,13 @@ module Embiggen
                       'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
         uri = described_class.new(URI('https://youtu.be/dQw4w9WgXcQ'))
 
-        expect(uri.expand!).to eq(URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'))
+        expect(uri.expand!).to embiggen_to(URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'))
       end
 
       it 'does not expand unshortened URIs' do
         uri = described_class.new(URI('http://www.altmetric.com'))
 
-        expect(uri.expand!).to eq(URI('http://www.altmetric.com'))
+        expect(uri.expand!).to embiggen_to(URI('http://www.altmetric.com'))
       end
 
       it 'raises an error if the URI redirects too many times' do
@@ -201,6 +201,20 @@ module Embiggen
         uri = described_class.new(URI('http://bit.ly/bad'))
 
         expect { uri.expand! }.to raise_error(::Errno::ECONNRESET)
+      end
+    end
+
+    describe '#uri' do
+      it 'returns the original URI' do
+        uri = described_class.new(URI('http://www.altmetric.com'))
+
+        expect(uri.uri).to eq(URI('http://www.altmetric.com'))
+      end
+
+      it 'returns a URI even if a string was passed' do
+        uri = described_class.new('http://www.altmetric.com')
+
+        expect(uri.uri).to eq(URI('http://www.altmetric.com'))
       end
     end
 
