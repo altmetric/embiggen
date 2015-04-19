@@ -23,27 +23,36 @@ require 'embiggen'
 
 # Basic usage
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<Embiggen::EmbiggenedURI https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
 # Longer-form usage
 uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
 uri.shortened?
 #=> true
-uri.expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+expanded_uri = uri.expand
+#=> #<Embiggen::EmbiggenedURI https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+expanded_uri.success?
+#=> true
 
 # Gracefully deals with unshortened URIs
 uri = Embiggen::URI('http://www.altmetric.com')
 uri.shortened?
 #=> false
 uri.expand
-#=> #<URI:HTTP http://www.altmetric.com>
+#=> #<Embiggen::EmbiggenedURI http://www.altmetric.com>
 
-# Noisier expand! for explicit error handling
-Embiggen::URI('http://bit.ly/bad').expand!
-#=> TooManyRedirects: http://bit.ly/bad redirected too many times
-# or...
-#=> BadShortenedURI: following http://bit.ly/bad did not redirect
+# Gracefully deals with errors
+uri = Embiggen::URI('http://examp.le/badlink').expand
+#=> #<Embiggen::EmbiggenedURI http://examp.le/badlink>
+uri.success?
+#=> false
+uri.reason
+#=> 'following http://examp.le/badlink did not redirect'
+
+uri = Embiggen::URI('http://examp.le/loop').expand
+#=> #<Embiggen::EmbiggenedURI http://examp.le/loop>
+uri.reason
+#=> 'http://examp.le/loop redirected too many times'
 
 # Optionally specify a timeout in seconds for expansion (default is 1)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)

@@ -1,51 +1,73 @@
+require 'embiggen/embiggened_uri'
 require 'embiggen/configuration'
 require 'net/http'
+require 'delegate'
 
 module Embiggen
-  class URI
-    attr_reader :uri
-
+  class URI < SimpleDelegator
     def initialize(uri)
-      @uri = uri.is_a?(::URI::Generic) ? uri : URI(uri.to_s)
+      super(uri.is_a?(::URI::Generic) ? uri : URI(uri.to_s))
     end
 
     def expand(request_options = {})
-      expand!(request_options)
-    rescue TooManyRedirects => error
-      error.uri
-    rescue Error, ::Timeout::Error, ::Errno::ECONNRESET
-      uri
+      return EmbiggenedURI.success(self) if expanded?
+
+      follow_redirects(request_options)
     end
 
     def expand!(request_options = {})
-      return uri unless shortened?
+      warn 'DEPRECATION WARNING: expand! is deprecated in favour of expand'
+      return EmbiggenedURI.success(self) if expanded?
 
-      redirects = request_options.fetch(:redirects) { Configuration.redirects }
-      check_redirects(redirects)
-
-      location = head_location(request_options)
-      check_location(location)
-
-      URI.new(location).
-        expand!(request_options.merge(:redirects => redirects - 1))
+      follow_redirects!(request_options)
     end
 
     def shortened?
-      Configuration.shorteners.any? { |domain| uri.host =~ /\b#{domain}\z/i }
+      Configuration.shorteners.any? { |domain| host =~ /\b#{domain}\z/i }
+    end
+
+    def expanded?
+      !shortened?
+    end
+
+    def inspect
+      "#<#{self.class} #{self}>"
     end
 
     private
 
-    def check_redirects(redirects)
-      return unless redirects.zero?
+    def follow_redirects(request_options = {})
+      redirects = request_options.fetch(:redirects) { Configuration.redirects }
+      return EmbiggenedURI.failure(self) if redirects.zero?
 
-      fail TooManyRedirects.new("#{uri} redirected too many times", uri)
+      location_uri(request_options).
+        expand(request_options.merge(:redirects => redirects - 1))
+    rescue ::Timeout::Error, ::Errno::ECONNRESET => e
+      EmbiggenedURI.failure(self, e.message)
     end
 
-    def check_location(location)
-      return if location
+    def follow_redirects!(request_options = {})
+      redirects = request_options.fetch(:redirects) { Configuration.redirects }
+      fail TooManyRedirects, "#{self} redirected too many " \
+        'times' if redirects.zero?
 
-      fail BadShortenedURI, "following #{uri} did not redirect"
+      location = head_location(request_options)
+
+      if location
+        location.expand!(request_options.merge(:redirects => redirects - 1))
+      else
+        fail BadShortenedURI, "following #{self} did not redirect"
+      end
+    end
+
+    def location_uri(request_options = {})
+      location = head_location(request_options)
+
+      if location
+        EmbiggenedURI.success(location)
+      else
+        EmbiggenedURI.failure(self, "following #{self} did not redirect")
+      end
     end
 
     def head_location(request_options = {})
@@ -54,14 +76,15 @@ module Embiggen
       http.open_timeout = timeout
       http.read_timeout = timeout
 
-      response = http.head(uri.request_uri)
+      response = http.head(request_uri)
 
-      response.fetch('Location') if response.is_a?(::Net::HTTPRedirection)
+      URI.new(
+        response.fetch('Location')) if response.is_a?(::Net::HTTPRedirection)
     end
 
     def http
-      http = ::Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true if uri.scheme == 'https'
+      http = ::Net::HTTP.new(host, port)
+      http.use_ssl = true if scheme == 'https'
 
       http
     end
@@ -69,13 +92,5 @@ module Embiggen
 
   class Error < ::StandardError; end
   class BadShortenedURI < Error; end
-
-  class TooManyRedirects < Error
-    attr_reader :uri
-
-    def initialize(message, uri)
-      super(message)
-      @uri = uri
-    end
-  end
+  class TooManyRedirects < Error; end
 end

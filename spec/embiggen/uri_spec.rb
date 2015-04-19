@@ -12,6 +12,15 @@ module Embiggen
         expect(uri.expand).to eq(URI('http://us.macmillan.com/books/9781466879980'))
       end
 
+      it 'marks expanded URIs as successful' do
+        stub_redirect('http://bit.ly/1ciyUPh',
+                      'http://us.macmillan.com/books/9781466879980')
+
+        uri = described_class.new(URI('http://bit.ly/1ciyUPh'))
+
+        expect(uri.expand).to be_success
+      end
+
       it 'expands HTTPS URIs' do
         stub_redirect('https://youtu.be/dQw4w9WgXcQ',
                       'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
@@ -49,6 +58,13 @@ module Embiggen
         expect(uri.expand).to eq(URI('http://bit.ly/bad'))
       end
 
+      it 'marks erroring URIs as unsuccessful' do
+        stub_request(:head, 'http://bit.ly/bad').to_return(:status => 500)
+        uri = described_class.new(URI('http://bit.ly/bad'))
+
+        expect(uri.expand).to_not be_success
+      end
+
       it 'does not expand URIs that time out' do
         stub_request(:head, 'http://bit.ly/bad').to_timeout
         uri = described_class.new(URI('http://bit.ly/bad'))
@@ -56,11 +72,25 @@ module Embiggen
         expect(uri.expand).to eq(URI('http://bit.ly/bad'))
       end
 
+      it 'marks timed out URIs as unsuccessful' do
+        stub_request(:head, 'http://bit.ly/bad').to_timeout
+        uri = described_class.new(URI('http://bit.ly/bad'))
+
+        expect(uri.expand).to_not be_success
+      end
+
       it 'does not expand URIs whose connection resets' do
         stub_request(:head, 'http://bit.ly/bad').to_raise(Errno::ECONNRESET)
         uri = described_class.new(URI('http://bit.ly/bad'))
 
         expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+      end
+
+      it 'marks URIs whose connection resets as unsuccessful' do
+        stub_request(:head, 'http://bit.ly/bad').to_raise(Errno::ECONNRESET)
+        uri = described_class.new(URI('http://bit.ly/bad'))
+
+        expect(uri.expand).to_not be_success
       end
 
       it 'takes an optional timeout' do
@@ -126,6 +156,8 @@ module Embiggen
     end
 
     describe '#expand!' do
+      around { |example| silence_warnings(example) }
+
       it 'expands shortened URLs' do
         stub_redirect('https://youtu.be/dQw4w9WgXcQ',
                       'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
@@ -172,20 +204,6 @@ module Embiggen
       end
     end
 
-    describe '#uri' do
-      it 'returns the original URI' do
-        uri = described_class.new(URI('http://www.altmetric.com'))
-
-        expect(uri.uri).to eq(URI('http://www.altmetric.com'))
-      end
-
-      it 'returns a URI even if a string was passed' do
-        uri = described_class.new('http://www.altmetric.com')
-
-        expect(uri.uri).to eq(URI('http://www.altmetric.com'))
-      end
-    end
-
     describe '#shortened?' do
       it 'returns true if the link has been shortened' do
         uri = described_class.new('http://bit.ly/1ciyUPh')
@@ -213,9 +231,38 @@ module Embiggen
       end
     end
 
+    describe '#expanded?' do
+      it 'is true if the link is not shortened' do
+        uri = described_class.new('http://www.altmetric.com')
+
+        expect(uri).to be_expanded
+      end
+
+      it 'is false if the link is shortened' do
+        uri = described_class.new('http://bit.ly/1ciyUPh')
+
+        expect(uri).to_not be_expanded
+      end
+    end
+
+    describe '#inspect' do
+      it 'reports the correct class name' do
+        uri = described_class.new('http://www.altmetric.com')
+
+        expect(uri.inspect).to eq('#<Embiggen::URI http://www.altmetric.com>')
+      end
+    end
+
     def stub_redirect(short_url, expanded_url, status = 301)
       stub_request(:head, short_url).
         to_return(:status => status, :headers => { 'Location' => expanded_url })
+    end
+
+    def silence_warnings(example)
+      original_verbose, $VERBOSE = $VERBOSE, nil
+      example.run
+    ensure
+      $VERBOSE = original_verbose
     end
   end
 end
