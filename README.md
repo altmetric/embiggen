@@ -22,28 +22,51 @@ gem 'embiggen', '~> 0.1'
 require 'embiggen'
 
 # Basic usage
-Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+uri = Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
+#=> #<Embiggen::EmbiggenedURI https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
-# Longer-form usage
-uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
-uri.shortened?
+# EmbiggenedURIs can be used much like standard URIs
+uri.to_s
+#=> 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+uri.host
+#=> 'www.youtube.com'
+uri.path
+#=> '/watch'
+uri.query
+#=> 'v=dQw4w9WgXcQ&feature=youtu.be'
+uri.request_uri
+#=> '/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+uri.scheme
+#=> 'https'
+
+# Or you can get an actual standard library URI instance out of them
+uri.uri
+#=> #<URI::HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+
+# You can interrogate them to see if they expanded successfully
+uri.success?
 #=> true
-uri.expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+
+# If there weren't successful, you can ask them why
+uri.success?
+#=> false
+uri.error
+#=> #<Embiggen::TooManyRedirects ...>
+# or
+#=> #<Embiggen::BadShortenedURI ...>
+# or
+#=> #<Timeout::Error ...>
+
+# Before expansion, you can check whether a URI is shortened or not
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').shortened?
+#=> true
 
 # Gracefully deals with unshortened URIs
 uri = Embiggen::URI('http://www.altmetric.com')
 uri.shortened?
 #=> false
 uri.expand
-#=> #<URI:HTTP http://www.altmetric.com>
-
-# Noisier expand! for explicit error handling
-Embiggen::URI('http://bit.ly/bad').expand!
-#=> TooManyRedirects: http://bit.ly/bad redirected too many times
-# or...
-#=> BadShortenedURI: following http://bit.ly/bad did not redirect
+#=> #<Embiggen::EmbiggenedURI http://www.altmetric.com>
 
 # Optionally specify a timeout in seconds for expansion (default is 1)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)

@@ -18,3 +18,13 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 end
+
+RSpec::Matchers.define :embiggen_to do |expected|
+  match do |actual|
+    actual.uri == expected
+  end
+
+  failure_message do |actual|
+    "expected that #{actual.uri} would equal #{expected}"
+  end
+end
