@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     embiggen (0.1.1)
+      addressable (~> 2.3)
 
 GEM
   remote: https://rubygems.org/

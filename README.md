@@ -28,21 +28,21 @@ require 'embiggen'
 
 # Basic usage
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&featur...>
 
 # Longer-form usage
 uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
 uri.shortened?
 #=> true
 uri.expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&featur...>
 
 # Gracefully deals with unshortened URIs
 uri = Embiggen::URI('http://www.altmetric.com')
 uri.shortened?
 #=> false
 uri.expand
-#=> #<URI:HTTP http://www.altmetric.com>
+#=> #<Addressable::URI URI:http://www.altmetric.com>
 
 # Noisier expand! for explicit error handling
 Embiggen::URI('http://bit.ly/bad').expand!
@@ -92,26 +92,24 @@ uri = Embiggen::URI(URI('https://youtu.be/dQw4w9WgXcQ'))
 Return a new `Embiggen::URI` instance which can be expanded and asked whether
 it is shortened or not.
 
-Takes instances of [Ruby's
-`URI`][URI] or
-anything with a string representation (through `to_s`) that can be parsed as a
-valid URI.
+Takes instances of [`Addressable::URI`][URI] or anything with a string
+representation (through `to_s`) that can be parsed as a valid URI.
 
 ### `Embiggen::URI#expand`
 
 ```ruby
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&featur...>
 
 Embiggen::URI('http://www.altmetric.com/').expand
-#=> #<URI::HTTP http://www.altmetric.com/>
+#=> #<Addressable::URI URI:http://www.altmetric.com/>
 
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:redirects => 2)
 ```
 
-Expand the given URI, returning the full version as a [`URI`][URI] if it is
-shortened or the original if it cannot be expanded. Will not raise any
+Expand the given URI, returning the full version as an [`Addressable::URI`][URI]
+if it is shortened or the original if it cannot be expanded. Will not raise any
 exceptions thrown during expansion (e.g. timeouts, network errors, invalid
 return URIs); see `expand!` for an alternative.
 
@@ -128,7 +126,7 @@ to [configure this to suit your needs](#shorteners).
 
 ```ruby
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand!
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&featur...>
 
 Embiggen::URI('http://bit.ly/some-bad-link').expand!
 # TooManyRedirects: http://bit.ly/some-bad-link redirected too many times
@@ -192,4 +190,4 @@ Copyright © 2015 Altmetric LLP
 
 Distributed under the MIT License.
 
-[URI]: http://ruby-doc.org/stdlib/libdoc/uri/rdoc/URI.html
+[URI]: http://addressable.rubyforge.org/api/Addressable/URI.html

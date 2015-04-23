@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.files = %w(README.md LICENSE) + Dir['lib/**/*.rb']
   s.test_files = Dir['spec/**/*.rb']
 
+  s.add_dependency('addressable', '~> 2.3')
   s.add_development_dependency('rspec', '~> 3.2')
   s.add_development_dependency('webmock', '~> 1.21')
 end
