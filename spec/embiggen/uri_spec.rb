@@ -63,6 +63,20 @@ module Embiggen
         expect(uri.expand).to eq(URI('http://bit.ly/bad'))
       end
 
+      it 'does not expand URIs whose host is unreachable' do
+        stub_request(:head, 'http://bit.ly/bad').to_raise(Errno::EHOSTUNREACH)
+        uri = described_class.new(URI('http://bit.ly/bad'))
+
+        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+      end
+
+      it 'does not expand URIs whose name or service is not known' do
+        stub_request(:head, 'http://bit.ly/bad').to_raise(SocketError)
+        uri = described_class.new(URI('http://bit.ly/bad'))
+
+        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+      end
+
       it 'takes an optional timeout' do
         stub_request(:head, 'http://bit.ly/bad').to_timeout
         uri = described_class.new(URI('http://bit.ly/bad'))

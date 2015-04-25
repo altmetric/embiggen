@@ -13,7 +13,7 @@ module Embiggen
       expand!(request_options)
     rescue TooManyRedirects => error
       error.uri
-    rescue Error, ::Timeout::Error, ::Errno::ECONNRESET
+    rescue StandardError, ::Timeout::Error
       uri
     end
 
