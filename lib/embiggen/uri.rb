@@ -1,4 +1,5 @@
 require 'embiggen/configuration'
+require 'addressable/uri'
 require 'net/http'
 
 module Embiggen
@@ -6,7 +7,7 @@ module Embiggen
     attr_reader :uri
 
     def initialize(uri)
-      @uri = uri.is_a?(::URI::Generic) ? uri : URI(uri.to_s)
+      @uri = ::Addressable::URI.parse(uri).normalize
     end
 
     def expand(request_options = {})
@@ -60,7 +61,7 @@ module Embiggen
     end
 
     def http
-      http = ::Net::HTTP.new(uri.host, uri.port)
+      http = ::Net::HTTP.new(uri.host, uri.inferred_port)
       http.use_ssl = true if uri.scheme == 'https'
 
       http
