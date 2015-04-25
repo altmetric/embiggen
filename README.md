@@ -1,5 +1,9 @@
 # Embiggen [![Build Status](https://travis-ci.org/altmetric/embiggen.svg?branch=master)](https://travis-ci.org/altmetric/embiggen)
 
+**This branch describes the unreleased 1.x version of Embiggen, see the
+[master branch](https://github.com/altmetric/embiggen) for the current stable
+version.**
+
 A Ruby library to expand shortened URLs.
 
 **Current version:** 0.1.1  
