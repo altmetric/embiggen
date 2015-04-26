@@ -27,28 +27,53 @@ gem 'embiggen', '~> 0.1'
 require 'embiggen'
 
 # Basic usage
-Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&featur...>
+uri = Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
+#=> #<Embiggen::EmbiggenedURI https://www.youtube.com/watch?v=dQw4w9WgXcQ&f...>
 
-# Longer-form usage
-uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
-uri.shortened?
+# EmbiggenedURIs can be used much like Addressable::URIs
+uri.to_s
+#=> 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+uri.host
+#=> 'www.youtube.com'
+uri.inferred_port
+#=> 443
+uri.path
+#=> '/watch'
+uri.query
+#=> 'v=dQw4w9WgXcQ&feature=youtu.be'
+uri.request_uri
+#=> '/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+uri.scheme
+#=> 'https'
+
+# Or you can get an actual Addressable::URI instance out of them
+uri.uri
+#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&feat...>
+
+# You can interrogate them to see if they expanded successfully
+uri.success?
 #=> true
-uri.expand
-#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&featur...>
+
+# If there weren't successful, you can ask them why
+uri.success?
+#=> false
+uri.error
+#=> #<Embiggen::TooManyRedirects ...>
+# or
+#=> #<Embiggen::BadShortenedURI ...>
+# or
+#=> #<Timeout::Error ...>
+
+# Before expansion, you can check whether a URI is shortened or not
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').shortened?
+#=> true
 
 # Gracefully deals with unshortened URIs
-uri = Embiggen::URI('http://www.altmetric.com')
+uri = Embiggen::URI('http://www.altmetric.com/')
 uri.shortened?
 #=> false
 uri.expand
-#=> #<Addressable::URI URI:http://www.altmetric.com>
-
-# Noisier expand! for explicit error handling
-Embiggen::URI('http://bit.ly/bad').expand!
-#=> TooManyRedirects: http://bit.ly/bad redirected too many times
-# or...
-#=> BadShortenedURI: following http://bit.ly/bad did not redirect
+#=> #<Embiggen::EmbiggenedURI http://www.altmetric.com/>
 
 # Optionally specify a timeout in seconds for expansion (default is 1)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)
@@ -99,19 +124,19 @@ representation (through `to_s`) that can be parsed as a valid URI.
 
 ```ruby
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&featur...>
+#=> #<Embiggen::EmbiggenedURI https://www.youtube.com/watch?v=dQw4w9WgXcQ&f...>
 
 Embiggen::URI('http://www.altmetric.com/').expand
-#=> #<Addressable::URI URI:http://www.altmetric.com/>
+#=> #<Embiggen::EmbiggenedURI http://www.altmetric.com/>
 
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:timeout => 5)
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:redirects => 2)
 ```
 
-Expand the given URI, returning the full version as an [`Addressable::URI`][URI]
-if it is shortened or the original if it cannot be expanded. Will not raise any
-exceptions thrown during expansion (e.g. timeouts, network errors, invalid
-return URIs); see `expand!` for an alternative.
+Expand the given URI, returning the result as an `Embiggen::EmbiggenedURI`.
+Will not raise any exceptions thrown during expansion (e.g. timeouts, network
+errors, invalid return URIs) but will encapsulate any error within the result
+(c.f. [`Embiggen::EmbiggenedURI#error`](#embiggenembiggenedurierror)).
 
 Takes an optional hash of options for expansion:
 
@@ -119,32 +144,8 @@ Takes an optional hash of options for expansion:
 * `:redirects`: overrides the default number of redirects to follow.
 
 Uses a whitelist of shortening domains (as configured through
-`Embiggen.configure`) to determine whether a URI is shortened or not. Be sure
-to [configure this to suit your needs](#shorteners).
-
-### `Embiggen::URI#expand!`
-
-```ruby
-Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand!
-#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&featur...>
-
-Embiggen::URI('http://bit.ly/some-bad-link').expand!
-# TooManyRedirects: http://bit.ly/some-bad-link redirected too many times
-```
-
-Expand the given URI as with `Embiggen::URI#expand` but don't suppress any
-exceptions raised during expansion (including timeouts, network errors,
-invalid return URIs, too many redirects or no redirects whatsoever).
-
-Takes the same options as `Embiggen::URI#expand`.
-
-Two Embiggen-specific errors (both inheriting from `Embiggen::Error`) can be
-raised:
-
-* `Embiggen::TooManyRedirects`: when a URI redirects more than the configured
-  number of times;
-* `Embiggen::BadShortenedURI`: when a URI appears to be shortened but
-  following it does not result in a redirect.
+[`Embiggen.configure`](#embiggenconfigure)) to determine whether a URI is
+shortened or not. Be sure to [configure this to suit your needs](#shorteners).
 
 ### `Embiggen::URI#shortened?`
 
@@ -158,6 +159,123 @@ Embiggen::URI('http://www.altmetric.com').shortened?
 
 Return true if the URI appears to be shortened. Uses the configured whitelist
 of shorteners, c.f. [Shorteners](#shorteners).
+
+### `Embiggen::URI#expanded?`
+
+```ruby
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expanded?
+#=> false
+
+Embiggen::URI('http://www.altmetric.com').expanded?
+#=> true
+```
+
+The opposite of [`Embiggen::URI#shortened?`](#embiggenurishortened).
+
+### `Embiggen::EmbiggenedURI#success?`
+
+```ruby
+uri = Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
+uri.success?
+#=> true
+```
+
+Return true if the URI was expanded successfully.
+
+### `Embiggen::EmbiggenedURI#error`
+
+```ruby
+uri = Embiggen::URI('http://bit.ly/some-bad-link').expand
+uri.success?
+#=> false
+uri.error
+#=> #<Timeout::Error ...>
+```
+
+Return any error raised during expansion (e.g. timeouts, network errors,
+invalid URIs).
+
+### `Embiggen::EmbiggenedURI#to_s`
+
+```ruby
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand.to_s
+#=> 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+```
+
+Return the URI as a string.
+
+### `Embiggen::EmbiggenedURI#uri`
+
+```ruby
+Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand.uri
+#=> #<Addressable::URI URI:https://www.youtube.com/watch?v=dQw4w9WgXcQ&feat...>
+```
+
+Return the underlying [`Addressable::URI`][URI] instance.
+
+### `Embiggen::EmbiggenedURI#fragment`
+
+```ruby
+Embiggen::URI('http://www.altmetric.com/#foo').expand.fragment
+#=> 'foo'
+```
+
+Return the fragment of the URI.
+
+### `Embiggen::EmbiggenedURI#host`
+
+```ruby
+Embiggen::URI('http://www.altmetric.com/#foo').expand.host
+#=> 'www.altmetric.com'
+```
+
+Return the host of the URI.
+
+### `Embiggen::EmbiggenedURI#path`
+
+```ruby
+Embiggen::URI('http://www.altmetric.com/#foo').expand.path
+#=> '/'
+```
+
+Return the path of the URI.
+
+### `Embiggen::EmbiggenedURI#inferred_port`
+
+```ruby
+Embiggen::URI('http://www.altmetric.com/#foo').expand.inferred_port
+#=> 80
+```
+
+Return the port of the URI, falling back to the scheme defaults (e.g. 80 for
+HTTP, 443 for HTTPS) if it isn't explicitly specified in the URI.
+
+### `Embiggen::EmbiggenedURI#query`
+
+```ruby
+Embiggen::URI('http://www.altmetric.com/?foo=bar').expand.query
+#=> 'foo=bar'
+```
+
+Return the query string of the URI.
+
+### `Embiggen::EmbiggenedURI#scheme`
+
+```ruby
+Embiggen::URI('http://www.altmetric.com/?foo=bar').expand.scheme
+#=> 'http'
+```
+
+Return the scheme of the URI.
+
+### `Embiggen::EmbiggenedURI#request_uri`
+
+```ruby
+Embiggen::URI('http://www.altmetric.com/?foo=bar').expand.request_uri
+#=> '/?foo=bar'
+```
+
+Return the full path, query string and fragment of the URI.
 
 ### `Embiggen.configure`
 

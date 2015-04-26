@@ -1,3 +1,4 @@
+require 'embiggen/embiggened_uri'
 require 'embiggen/configuration'
 require 'addressable/uri'
 require 'net/http'
@@ -11,42 +12,35 @@ module Embiggen
     end
 
     def expand(request_options = {})
-      expand!(request_options)
-    rescue TooManyRedirects => error
-      error.uri
-    rescue StandardError, ::Timeout::Error
-      uri
+      return EmbiggenedURI.success(uri) if expanded?
+
+      follow_redirects(request_options)
+    rescue ::StandardError, ::Timeout::Error => e
+      EmbiggenedURI.failure(uri, e)
     end
 
-    def expand!(request_options = {})
-      return uri unless shortened?
-
-      redirects = request_options.fetch(:redirects) { Configuration.redirects }
-      check_redirects(redirects)
-
-      location = head_location(request_options)
-      check_location(location)
-
-      URI.new(location).
-        expand!(request_options.merge(:redirects => redirects - 1))
-    end
+    alias_method :embiggen, :expand
 
     def shortened?
       Configuration.shorteners.any? { |domain| uri.host =~ /\b#{domain}\z/i }
     end
 
-    private
-
-    def check_redirects(redirects)
-      return unless redirects.zero?
-
-      fail TooManyRedirects.new("#{uri} redirected too many times", uri)
+    def expanded?
+      !shortened?
     end
 
-    def check_location(location)
-      return if location
+    def inspect
+      "#<#{self.class} #{uri}>"
+    end
 
-      fail BadShortenedURI, "following #{uri} did not redirect"
+    private
+
+    def follow_redirects(request_options = {})
+      redirects = request_options.fetch(:redirects) { Configuration.redirects }
+      return EmbiggenedURI.too_many_redirects(uri) if redirects.zero?
+
+      head_location(request_options).
+        expand(request_options.merge(:redirects => redirects - 1))
     end
 
     def head_location(request_options = {})
@@ -55,9 +49,7 @@ module Embiggen
       http.open_timeout = timeout
       http.read_timeout = timeout
 
-      response = http.head(uri.request_uri)
-
-      response.fetch('Location') if response.is_a?(::Net::HTTPRedirection)
+      extract_location(http.head(uri.request_uri))
     end
 
     def http
@@ -66,17 +58,19 @@ module Embiggen
 
       http
     end
-  end
 
-  class Error < ::StandardError; end
-  class BadShortenedURI < Error; end
+    def extract_location(response)
+      if response.is_a?(::Net::HTTPRedirection)
+        URI.new(response.fetch('Location'))
+      else
+        EmptyLocation.new(uri)
+      end
+    end
 
-  class TooManyRedirects < Error
-    attr_reader :uri
-
-    def initialize(message, uri)
-      super(message)
-      @uri = uri
+    EmptyLocation = Struct.new(:uri) do
+      def expand(_request_options = {})
+        EmbiggenedURI.bad_shortened_uri(uri)
+      end
     end
   end
 end
