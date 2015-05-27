@@ -61,46 +61,89 @@ module Embiggen
         expect { uri.expand }.to_not raise_error
       end
 
-      it 'does not expand erroring URIs' do
+      it 'raises an error if the URI redirects too many times' do
+        stub_redirect('http://bit.ly/1', 'http://bit.ly/2')
+        stub_redirect('http://bit.ly/2', 'http://bit.ly/3')
+        stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
+        uri = described_class.new('http://bit.ly/1')
+
+        expect { uri.expand(:redirects => 2) }.
+          to raise_error(TooManyRedirects)
+      end
+
+      it 'retains the last URI when redirecting too many times' do
+        stub_redirect('http://bit.ly/1', 'http://bit.ly/2')
+        stub_redirect('http://bit.ly/2', 'http://bit.ly/3')
+        stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
+        uri = described_class.new('http://bit.ly/1')
+
+        last_uri = nil
+
+        begin
+          uri.expand(:redirects => 2)
+        rescue TooManyRedirects => ex
+          last_uri = ex.uri
+        end
+
+        expect(last_uri).to eq(URI('http://bit.ly/3'))
+      end
+
+      it 'raises an error if a shortened URI does not redirect' do
         stub_request(:head, 'http://bit.ly/bad').to_return(:status => 500)
-        uri = described_class.new(URI('http://bit.ly/bad'))
+        uri = described_class.new('http://bit.ly/bad')
 
-        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+        expect { uri.expand }.to raise_error(BadShortenedURI)
       end
 
-      it 'does not expand URIs that time out' do
+      it 'retains the last URI if a shortened URI does not redirect' do
+        stub_redirect('http://bit.ly/bad', 'http://bit.ly/bad2')
+        stub_request(:head, 'http://bit.ly/bad2').to_return(:status => 500)
+        uri = described_class.new('http://bit.ly/bad')
+
+        last_uri = nil
+
+        begin
+          uri.expand
+        rescue BadShortenedURI => ex
+          last_uri = ex.uri
+        end
+
+        expect(last_uri).to eq(URI('http://bit.ly/bad2'))
+      end
+
+      it 'raises a network error if the URI times out' do
         stub_request(:head, 'http://bit.ly/bad').to_timeout
-        uri = described_class.new(URI('http://bit.ly/bad'))
+        uri = described_class.new('http://bit.ly/bad')
 
-        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+        expect { uri.expand }.to raise_error(NetworkError)
       end
 
-      it 'does not expand URIs whose connection resets' do
-        stub_request(:head, 'http://bit.ly/bad').to_raise(Errno::ECONNRESET)
-        uri = described_class.new(URI('http://bit.ly/bad'))
+      it 'raises a network error if the connection resets' do
+        stub_request(:head, 'http://bit.ly/bad').to_raise(::Errno::ECONNRESET)
+        uri = described_class.new('http://bit.ly/bad')
 
-        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+        expect { uri.expand }.to raise_error(NetworkError)
       end
 
-      it 'does not expand URIs whose host is unreachable' do
-        stub_request(:head, 'http://bit.ly/bad').to_raise(Errno::EHOSTUNREACH)
-        uri = described_class.new(URI('http://bit.ly/bad'))
+      it 'raises a network error if the host cannot be reached' do
+        stub_request(:head, 'http://bit.ly/bad').to_raise(::Errno::EHOSTUNREACH)
+        uri = described_class.new('http://bit.ly/bad')
 
-        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
+        expect { uri.expand }.to raise_error(NetworkError)
       end
 
-      it 'does not expand URIs whose name or service is not known' do
-        stub_request(:head, 'http://bit.ly/bad').to_raise(SocketError)
-        uri = described_class.new(URI('http://bit.ly/bad'))
+      it 'retains the last URI if there is a network error' do
+        stub_redirect('http://bit.ly/bad', 'http://bit.ly/bad2')
+        stub_request(:head, 'http://bit.ly/bad2').to_timeout
+        uri = described_class.new('http://bit.ly/bad')
 
-        expect(uri.expand).to eq(URI('http://bit.ly/bad'))
-      end
+        begin
+          uri.expand
+        rescue NetworkError => ex
+          last_uri = ex.uri
+        end
 
-      it 'takes an optional timeout' do
-        stub_request(:head, 'http://bit.ly/bad').to_timeout
-        uri = described_class.new(URI('http://bit.ly/bad'))
-
-        expect(uri.expand(:timeout => 5)).to eq(URI('http://bit.ly/bad'))
+        expect(last_uri).to eq(URI('http://bit.ly/bad2'))
       end
 
       it 'expands redirects to other shorteners' do
@@ -122,7 +165,7 @@ module Embiggen
         stub_redirect('http://bit.ly/6', 'http://bit.ly/7')
         uri = described_class.new(URI('http://bit.ly/1'))
 
-        expect(uri.expand).to eq(URI('http://bit.ly/6'))
+        expect { uri.expand }.to raise_error(TooManyRedirects)
       end
 
       it 'takes an optional redirect threshold' do
@@ -131,7 +174,7 @@ module Embiggen
         stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
         uri = described_class.new(URI('http://bit.ly/1'))
 
-        expect(uri.expand(:redirects => 2)).to eq(URI('http://bit.ly/3'))
+        expect { uri.expand(:redirects => 2) }.to raise_error(TooManyRedirects)
       end
 
       it 'uses the threshold from the configuration' do
@@ -141,7 +184,7 @@ module Embiggen
         uri = described_class.new(URI('http://bit.ly/1'))
         Configuration.redirects = 2
 
-        expect(uri.expand).to eq(URI('http://bit.ly/3'))
+        expect { uri.expand }.to raise_error(TooManyRedirects)
       end
 
       it 'uses shorteners from the configuration' do
@@ -158,55 +201,8 @@ module Embiggen
       end
     end
 
-    describe '#expand!' do
-      it 'expands shortened URLs' do
-        stub_redirect('https://youtu.be/dQw4w9WgXcQ',
-                      'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')
-        uri = described_class.new(URI('https://youtu.be/dQw4w9WgXcQ'))
-
-        expect(uri.expand!).to eq(URI('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'))
-      end
-
-      it 'does not expand unshortened URIs' do
-        uri = described_class.new(URI('http://www.altmetric.com'))
-
-        expect(uri.expand!).to eq(URI('http://www.altmetric.com'))
-      end
-
-      it 'raises an error if the URI redirects too many times' do
-        stub_redirect('http://bit.ly/1', 'http://bit.ly/2')
-        stub_redirect('http://bit.ly/2', 'http://bit.ly/3')
-        stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
-        uri = described_class.new(URI('http://bit.ly/1'))
-
-        expect { uri.expand!(:redirects => 2) }.
-          to raise_error(TooManyRedirects)
-      end
-
-      it 'raises an error if a shortened URI does not redirect' do
-        stub_request(:head, 'http://bit.ly/bad').to_return(:status => 500)
-        uri = described_class.new(URI('http://bit.ly/bad'))
-
-        expect { uri.expand! }.to raise_error(BadShortenedURI)
-      end
-
-      it 'raises an error if the URI times out' do
-        stub_request(:head, 'http://bit.ly/bad').to_timeout
-        uri = described_class.new(URI('http://bit.ly/bad'))
-
-        expect { uri.expand! }.to raise_error(::Timeout::Error)
-      end
-
-      it 'raises an error if the URI errors' do
-        stub_request(:head, 'http://bit.ly/bad').to_raise(::Errno::ECONNRESET)
-        uri = described_class.new(URI('http://bit.ly/bad'))
-
-        expect { uri.expand! }.to raise_error(::Errno::ECONNRESET)
-      end
-    end
-
     describe '#uri' do
-      it 'returns the original URI' do
+      it 'returns a URI' do
         uri = described_class.new(URI('http://www.altmetric.com'))
 
         expect(uri.uri).to eq(URI('http://www.altmetric.com'))
@@ -243,6 +239,14 @@ module Embiggen
         uri = described_class.new('http://notbit.ly/1ciyUPh')
 
         expect(uri).to_not be_shortened
+      end
+    end
+
+    describe '#http_client' do
+      it 'returns the HTTP client for the given URI' do
+        uri = described_class.new('http://www.altmetric.com')
+
+        expect(uri.http_client.uri).to eq(URI('http://www.altmetric.com'))
       end
     end
 

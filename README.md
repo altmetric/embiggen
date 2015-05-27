@@ -44,8 +44,8 @@ uri.shortened?
 uri.expand
 #=> #<URI::HTTP http://www.altmetric.com>
 
-# Noisier expand! for explicit error handling
-Embiggen::URI('http://bit.ly/bad').expand!
+# Raises errors with bad shortened URIs
+Embiggen::URI('http://bit.ly/bad').expand
 #=> TooManyRedirects: http://bit.ly/bad redirected too many times
 # or...
 #=> BadShortenedURI: following http://bit.ly/bad did not redirect
@@ -111,9 +111,18 @@ Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand(:redirects => 2)
 ```
 
 Expand the given URI, returning the full version as a [`URI`][URI] if it is
-shortened or the original if it cannot be expanded. Will not raise any
-exceptions thrown during expansion (e.g. timeouts, network errors, invalid
-return URIs); see `expand!` for an alternative.
+shortened or the original if it is not. Can raise the following exceptions
+during expansion:
+
+* `Embiggen::TooManyRedirects`: when a URI redirects more than the configured
+  number of times;
+* `Embiggen::BadShortenedURI`: when a URI appears to be shortened but
+  following it does not result in a redirect;
+* `Embiggen::NetworkError`: when an error occurs during expansion (e.g. a
+  network timeout, connection reset, unreachable host, etc.).
+
+All of the above inherit from `Embiggen::Error` and have a `uri` method for
+determining the problematic URI.
 
 Takes an optional hash of options for expansion:
 
@@ -123,30 +132,6 @@ Takes an optional hash of options for expansion:
 Uses a whitelist of shortening domains (as configured through
 `Embiggen.configure`) to determine whether a URI is shortened or not. Be sure
 to [configure this to suit your needs](#shorteners).
-
-### `Embiggen::URI#expand!`
-
-```ruby
-Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand!
-#=> #<URI::HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
-
-Embiggen::URI('http://bit.ly/some-bad-link').expand!
-# TooManyRedirects: http://bit.ly/some-bad-link redirected too many times
-```
-
-Expand the given URI as with `Embiggen::URI#expand` but don't suppress any
-exceptions raised during expansion (including timeouts, network errors,
-invalid return URIs, too many redirects or no redirects whatsoever).
-
-Takes the same options as `Embiggen::URI#expand`.
-
-Two Embiggen-specific errors (both inheriting from `Embiggen::Error`) can be
-raised:
-
-* `Embiggen::TooManyRedirects`: when a URI redirects more than the configured
-  number of times;
-* `Embiggen::BadShortenedURI`: when a URI appears to be shortened but
-  following it does not result in a redirect.
 
 ### `Embiggen::URI#shortened?`
 

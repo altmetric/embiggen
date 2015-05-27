@@ -1,34 +1,26 @@
 require 'embiggen/configuration'
+require 'embiggen/error'
+require 'embiggen/http_client'
 require 'addressable/uri'
-require 'net/http'
+require 'uri'
 
 module Embiggen
   class URI
-    attr_reader :uri
+    attr_reader :uri, :http_client
 
     def initialize(uri)
       @uri = URI(::Addressable::URI.parse(uri).normalize.to_s)
+      @http_client = HttpClient.new(@uri)
     end
 
     def expand(request_options = {})
-      expand!(request_options)
-    rescue TooManyRedirects => error
-      error.uri
-    rescue StandardError, ::Timeout::Error
-      uri
-    end
-
-    def expand!(request_options = {})
       return uri unless shortened?
 
-      redirects = request_options.fetch(:redirects) { Configuration.redirects }
-      check_redirects(redirects)
+      redirects = extract_redirects(request_options)
+      location = follow(request_options)
 
-      location = head_location(request_options)
-      check_location(location)
-
-      URI.new(location).
-        expand!(request_options.merge(:redirects => redirects - 1))
+      self.class.new(location).
+        expand(request_options.merge(:redirects => redirects - 1))
     end
 
     def shortened?
@@ -37,46 +29,22 @@ module Embiggen
 
     private
 
-    def check_redirects(redirects)
-      return unless redirects.zero?
+    def extract_redirects(request_options = {})
+      redirects = request_options.fetch(:redirects) { Configuration.redirects }
+      fail TooManyRedirects.new(
+        "following #{uri} reached the redirect limit", uri) if redirects.zero?
 
-      fail TooManyRedirects.new("#{uri} redirected too many times", uri)
+      redirects
     end
 
-    def check_location(location)
-      return if location
-
-      fail BadShortenedURI, "following #{uri} did not redirect"
-    end
-
-    def head_location(request_options = {})
+    def follow(request_options = {})
       timeout = request_options.fetch(:timeout) { Configuration.timeout }
 
-      http.open_timeout = timeout
-      http.read_timeout = timeout
+      location = http_client.follow(timeout)
+      fail BadShortenedURI.new(
+        "following #{uri} did not redirect", uri) unless location
 
-      response = http.head(uri.request_uri)
-
-      response.fetch('Location') if response.is_a?(::Net::HTTPRedirection)
-    end
-
-    def http
-      http = ::Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true if uri.scheme == 'https'
-
-      http
-    end
-  end
-
-  class Error < ::StandardError; end
-  class BadShortenedURI < Error; end
-
-  class TooManyRedirects < Error
-    attr_reader :uri
-
-    def initialize(message, uri)
-      super(message)
-      @uri = uri
+      location
     end
   end
 end
