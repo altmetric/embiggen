@@ -2,19 +2,19 @@
 
 A Ruby library to expand shortened URLs.
 
-**Current version:** 0.1.1  
+**Current version:** 0.2.0  
 **Supported Ruby versions:** 1.8.7, 1.9.2, 1.9.3, 2.0, 2.1, 2.2
 
 ## Installation
 
 ```
-gem install embiggen -v '~> 0.1'
+gem install embiggen -v '~> 0.2'
 ```
 
 Or, in your `Gemfile`:
 
 ```ruby
-gem 'embiggen', '~> 0.1'
+gem 'embiggen', '~> 0.2'
 ```
 
 ## Usage
