@@ -24,21 +24,21 @@ require 'embiggen'
 
 # Basic usage
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<URI::HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
 # Longer-form usage
 uri = Embiggen::URI.new(URI('https://youtu.be/dQw4w9WgXcQ'))
 uri.shortened?
 #=> true
 uri.expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<URI::HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
 # Gracefully deals with unshortened URIs
 uri = Embiggen::URI('http://www.altmetric.com')
 uri.shortened?
 #=> false
 uri.expand
-#=> #<URI:HTTP http://www.altmetric.com>
+#=> #<URI::HTTP http://www.altmetric.com>
 
 # Noisier expand! for explicit error handling
 Embiggen::URI('http://bit.ly/bad').expand!
@@ -97,7 +97,7 @@ valid URI.
 
 ```ruby
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<URI::HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
 Embiggen::URI('http://www.altmetric.com/').expand
 #=> #<URI::HTTP http://www.altmetric.com/>
@@ -124,7 +124,7 @@ to [configure this to suit your needs](#shorteners).
 
 ```ruby
 Embiggen::URI('https://youtu.be/dQw4w9WgXcQ').expand!
-#=> #<URI:HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
+#=> #<URI::HTTPS https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be>
 
 Embiggen::URI('http://bit.ly/some-bad-link').expand!
 # TooManyRedirects: http://bit.ly/some-bad-link redirected too many times
