@@ -1,4 +1,5 @@
 require 'embiggen/configuration'
+require 'addressable/uri'
 require 'net/http'
 
 module Embiggen
@@ -6,7 +7,7 @@ module Embiggen
     attr_reader :uri
 
     def initialize(uri)
-      @uri = uri.is_a?(::URI::Generic) ? uri : URI(uri.to_s)
+      @uri = URI(::Addressable::URI.parse(uri).normalize.to_s)
     end
 
     def expand(request_options = {})

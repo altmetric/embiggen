@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'embiggen'
 
 module Embiggen
@@ -28,6 +29,24 @@ module Embiggen
         uri = described_class.new('http://bit.ly/1ciyUPh')
 
         expect(uri.expand).to eq(URI('http://us.macmillan.com/books/9781466879980'))
+      end
+
+      it 'expands URIs with encoded locations' do
+        stub_redirect('http://bit.ly/1ciyUPh',
+                      'http://www.example.com/%C3%A9%20%C3%BC')
+
+        uri = described_class.new('http://bit.ly/1ciyUPh')
+
+        expect(uri.expand).to eq(URI('http://www.example.com/%C3%A9%20%C3%BC'))
+      end
+
+      it 'expands URIs with unencoded locations' do
+        stub_redirect('http://bit.ly/1ciyUPh',
+                      'http://www.example.com/é ü')
+
+        uri = described_class.new('http://bit.ly/1ciyUPh')
+
+        expect(uri.expand).to eq(URI('http://www.example.com/%C3%A9%20%C3%BC'))
       end
 
       it 'does not expand unshortened URIs' do
