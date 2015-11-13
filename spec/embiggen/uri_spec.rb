@@ -95,6 +95,13 @@ module Embiggen
         expect { uri.expand }.to raise_error(BadShortenedURI)
       end
 
+      it 'raises and error if the URI returned is not valid' do
+        stub_redirect('http://bit.ly/suspicious', '|cat /etc/passwd')
+        uri = described_class.new('http://bit.ly/suspicious')
+
+        expect { uri.expand }.to raise_error(BadShortenedURI)
+      end
+
       it 'retains the last URI if a shortened URI does not redirect' do
         stub_redirect('http://bit.ly/bad', 'http://bit.ly/bad2')
         stub_request(:head, 'http://bit.ly/bad2').to_return(:status => 500)

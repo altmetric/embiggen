@@ -41,10 +41,22 @@ module Embiggen
       timeout = request_options.fetch(:timeout) { Configuration.timeout }
 
       location = http_client.follow(timeout)
+      check_location(location)
+
+      location
+    end
+
+    def check_location(location)
       fail BadShortenedURI.new(
         "following #{uri} did not redirect", uri) unless location
 
-      location
+      parsed_uri = Addressable::URI.parse(location)
+      return if parsed_uri.scheme && parsed_uri.host && parsed_uri.path
+
+      fail Addressable::URI::InvalidURIError
+    rescue Addressable::URI::InvalidURIError
+      raise BadShortenedURI.new(
+        "following #{uri} returns a not valid URI", uri)
     end
   end
 end
