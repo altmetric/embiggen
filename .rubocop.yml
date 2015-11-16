@@ -16,6 +16,10 @@ Lint/HandleExceptions:
   Exclude:
     - Rakefile
 
+# Overwrite Hound default
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
 # For Ruby 1.8 compatibility
 Style/DotPosition:
   EnforcedStyle: trailing
