@@ -4,7 +4,7 @@ require 'set'
 module Embiggen
   class ShortenerList
     extend Forwardable
-    extend Enumerable
+    include Enumerable
 
     attr_reader :domains
 

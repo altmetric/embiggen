@@ -77,4 +77,10 @@ RSpec.describe Embiggen::ShortenerList do
       expect(list).to include(URI('http://a.com/foo'))
     end
   end
+
+  it 'is enumerable for 1.8 compatiblity' do
+    list = described_class.new([])
+
+    expect(list).to be_kind_of(Enumerable)
+  end
 end
