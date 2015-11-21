@@ -159,10 +159,9 @@ end
 Override the following settings:
 
 * `timeout`: the default timeout for following any redirects (can be
-  overridden by passing options to `Embiggen::URI#expand` or
-  `Embiggen::URI#expand!`);
+  overridden by passing options to `Embiggen::URI#expand`);
 * `redirects`: the default number of redirects to follow (can be overridden by
-  passing options to `Embiggen::URI#expand` or `Embiggen::URI#expand!`);
+  passing options to `Embiggen::URI#expand`);
 * `shorteners`: the list of domains of shortening services, c.f.
   [Shorteners](#shorteners).
 
