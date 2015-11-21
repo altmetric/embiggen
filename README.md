@@ -1,24 +1,20 @@
 # Embiggen [![Build Status](https://travis-ci.org/altmetric/embiggen.svg?branch=master)](https://travis-ci.org/altmetric/embiggen)
 
-**This branch describes the unreleased 1.x version of Embiggen, see the
-[master branch](https://github.com/altmetric/embiggen) for the current stable
-version.**
-
 A Ruby library to expand shortened URLs.
 
-**Current version:** 0.2.0  
+**Current version:** 1.0.0  
 **Supported Ruby versions:** 1.8.7, 1.9.2, 1.9.3, 2.0, 2.1, 2.2
 
 ## Installation
 
 ```
-gem install embiggen -v '~> 0.2'
+gem install embiggen -v '~> 1.0'
 ```
 
 Or, in your `Gemfile`:
 
 ```ruby
-gem 'embiggen', '~> 0.2'
+gem 'embiggen', '~> 1.0'
 ```
 
 ## Usage
