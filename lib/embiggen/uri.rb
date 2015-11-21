@@ -24,7 +24,7 @@ module Embiggen
     end
 
     def shortened?
-      Configuration.shorteners.any? { |domain| uri.host =~ /\b#{domain}\z/i }
+      Configuration.shorteners.include?(uri)
     end
 
     private

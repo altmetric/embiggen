@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'set'
+require 'embiggen/shortener_list'
 
 module Embiggen
   class Configuration
@@ -17,7 +18,7 @@ module Embiggen
 
     # From http://longurl.org/services
     def self.shorteners
-      @shorteners ||= Set.new(%w(
+      @shorteners ||= ShortenerList.new(%w(
         0rz.tw 1link.in 1url.com 2.gp 2big.at 2tu.us 3.ly 307.to 4ms.me
         4sq.com 4url.cc 6url.com 7.ly a.gg a.nf aa.cx abcurl.net ad.vu adf.ly
         adjix.com afx.cc all.fuseurl.com alturl.com amzn.to ar.gy arst.ch
