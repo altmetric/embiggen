@@ -70,13 +70,55 @@ end
 Embiggen ships with a default list of URL shortening service domains (c.f.
 [Acknowledgements](#acknowledgements)) but as it is likely to be outdated and
 incomplete, you are strongly encouraged to supply your own via
-`Embiggen.configure`:
+`Embiggen.configure`.
+
+The list of shorteners is an object that responds to `include?` and will be
+passed a URI. By default, Embiggen ships with a `ShortenerList` class which
+takes a list of string domains and will return `true` if given a URI with a
+matching host.
+
+You can supply your own values and logic like so:
 
 ```ruby
 Embiggen.configure do |config|
-  config.shorteners = %w(myshorten.er anoth.er)
+  config.shorteners = Embiggen::ShortenerList.new(%w(myshorten.er anoth.er))
   # or load from a file...
-  config.shorteners = File.readlines('shorteners.txt').map(&:chomp)
+  config.shorteners = Embiggen::ShortenerList.new(File.readlines('shorteners.txt').map(&:chomp))
+end
+
+# Custom logic to attempt to expand every URI
+class ExpandEverything
+  def self.include?(_uri)
+    true
+  end
+end
+
+Embiggen.configure do |config|
+  config.shorteners = ExpandEverything
+end
+
+# Use the Bitly API to only expand URIs on Bitly Pro domains
+require 'bitly'
+require 'forwardable'
+
+class BitlyDomains
+  extend Forwardable
+  attr_reader :client
+  def_delegator :client, :pro?, :include?
+
+  def initialize(client)
+    @client = client
+  end
+end
+
+Bitly.use_api_version_3
+Bitly.configure do |config|
+  config.api_version = 3
+  config.access_token = ENV.fetch('BITLY_ACCESS_TOKEN')
+end
+
+Embiggen.configure do |config|
+  config.shorteners = BitlyDomains.new(Bitly.client)
 end
 ```
 
