@@ -248,10 +248,27 @@ module Embiggen
         expect(uri).to be_shortened
       end
 
-      it 'returns false if the link is not shortened but uses a similar ' \
+      it 'returns false if link is not shortened but uses a similar ' \
          'domain' do
         uri = described_class.new('http://notbit.ly/1ciyUPh')
+        expect(uri).to_not be_shortened
+      end
 
+      it 'returns false if link is not shortened but uses a similar ' \
+         'domain without protocol' do
+        uri = described_class.new('notbit.ly/1ciyUPh')
+        expect(uri).to_not be_shortened
+      end
+
+      it 'returns false if link is not shortened but uses the same domain ' \
+         'with a different TLD' do
+        uri = described_class.new('http://nbc.com/1ciyUPh')
+        expect(uri).to_not be_shortened
+      end
+
+      it 'returns false if link is not shortened but uses the same domain ' \
+         'with a different TLD without protocol' do
+        uri = described_class.new('nbc.com/1ciyUPh')
         expect(uri).to_not be_shortened
       end
     end
