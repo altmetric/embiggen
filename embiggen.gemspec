@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.authors = ['Paul Mucur', 'Jonathan Hernandez']
   s.email = 'support@altmetric.com'
   s.homepage = 'https://github.com/altmetric/embiggen'
-  s.files = %w(README.md LICENSE) + Dir['lib/**/*.rb']
+  s.files = %w(README.md LICENSE shorteners.txt) + Dir['lib/**/*.rb']
   s.test_files = Dir['spec/**/*.rb']
 
   s.add_dependency('addressable', '~> 2.3')
