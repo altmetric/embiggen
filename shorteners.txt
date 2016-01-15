@@ -17,6 +17,7 @@ aa.cx
 abcurl.net
 ad.vu
 adf.ly
+adfoc.us
 adjix.com
 afx.cc
 all.fuseurl.com
@@ -29,8 +30,10 @@ azc.cc
 b23.ru
 b2l.me
 bacn.me
+bc.vc
 bcool.bz
 binged.it
+bit.do
 bit.ly
 bizj.us
 bloat.me
@@ -82,6 +85,7 @@ flq.us
 fly2.ws
 fon.gs
 freak.to
+fur.ly
 fuseurl.com
 fuzzy.to
 fwd4.me
@@ -199,6 +203,7 @@ s7y.us
 safe.mn
 sameurl.com
 sdut.us
+seomafia.net
 shar.es
 shink.de
 shorl.com
@@ -228,7 +233,6 @@ spedr.com
 srnk.net
 srs.li
 starturl.com
-stub_redirects.ca
 su.pr
 surl.co.uk
 surl.hu
