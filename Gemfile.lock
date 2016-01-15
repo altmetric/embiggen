@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    embiggen (1.0.0)
+    embiggen (1.1.0)
       addressable (~> 2.3)
 
 GEM
