@@ -64,9 +64,10 @@ end
 ## Shorteners
 
 Embiggen ships with a default list of URL shortening service domains (c.f.
-[Acknowledgements](#acknowledgements)) but as it is likely to be outdated and
-incomplete, you are strongly encouraged to supply your own via
-`Embiggen.configure`.
+[Acknowledgements](#acknowledgements)) in
+[`shorteners.txt`](https://github.com/altmetric/embiggen/blob/master/shorteners.txt)
+but as it is likely to be outdated and incomplete, you are strongly encouraged
+to supply your own via `Embiggen.configure`.
 
 The list of shorteners is an object that responds to `include?` and will be
 passed a URI. By default, Embiggen ships with a `ShortenerList` class which
