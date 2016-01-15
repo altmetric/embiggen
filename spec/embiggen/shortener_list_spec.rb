@@ -27,6 +27,12 @@ RSpec.describe Embiggen::ShortenerList do
 
       expect(list).to_not include(URI('http://www.altmetric.com'))
     end
+
+    it 'returns true if a URL host without a subdomain is on the whitelist' do
+      list = described_class.new(%w(bit.ly))
+
+      expect(list).to include(URI('http://www.bit.ly/foo'))
+    end
   end
 
   describe '#<<' do
