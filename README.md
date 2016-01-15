@@ -205,12 +205,15 @@ Override the following settings:
 
 ## Acknowledgements
 
+* The extraction of `shorteners.txt` and performance improvements to the
+  shortener list were contributed by [Avner
+  Cohen](https://github.com/AvnerCohen);
 * The default list of shorteners comes from [LongURL.org's curated
   list](http://longurl.org/services).
 
 ## License
 
-Copyright © 2015 Altmetric LLP
+Copyright © 2015-2016 Altmetric LLP
 
 Distributed under the MIT License.
 
