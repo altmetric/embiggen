@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    embiggen (1.1.0)
+    embiggen (1.2.0)
       addressable (~> 2.3)
 
 GEM
@@ -53,3 +53,6 @@ DEPENDENCIES
   rspec (~> 3.2)
   rubocop (~> 0.30)
   webmock (~> 1.21)
+
+BUNDLED WITH
+   1.11.2
