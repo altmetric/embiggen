@@ -2,7 +2,7 @@
 
 A Ruby library to expand shortened URLs.
 
-**Current version:** 1.1.0  
+**Current version:** 1.2.0  
 **Supported Ruby versions:** 1.8.7, 1.9.2, 1.9.3, 2.0, 2.1, 2.2
 
 ## Installation
@@ -209,8 +209,12 @@ Override the following settings:
 * The extraction of `shorteners.txt` and performance improvements to the
   shortener list were contributed by [Avner
   Cohen](https://github.com/AvnerCohen);
-* The default list of shorteners comes from [LongURL.org's curated
-  list](http://longurl.org/services).
+* The default list of shorteners includes:
+  * [LongURL.org's](http://longurl.org/services) curated list
+  * [Bit.do's](http://bit.do/list-of-url-shorteners.php) curated list
+  * [Hongkiat's](http://www.hongkiat.com/blog/url-shortening-services-the-ultimate-list/)
+  curated list
+  * A list of branded [Bitly](https://bitly.com/) domains collected by Altmetric
 
 ## License
 
