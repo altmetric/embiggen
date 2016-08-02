@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    embiggen (1.2.0)
+    embiggen (1.2.1)
       addressable (~> 2.3)
 
 GEM
@@ -55,4 +55,4 @@ DEPENDENCIES
   webmock (~> 1.21)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

@@ -2,9 +2,13 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.1] - 2016-08-02
+### Changes
+- Add another 2,320 shortener Bitly Pro domains.
+
 ## [1.2.0] - 2016-05-10
 ### Changed
-- list of shorteners: it now includes 1293 Bitly pro domains.
+- List of shorteners: it now includes 1293 Bitly pro domains.
 
 ## [1.1.0] - 2016-01-15
 ### Changed
