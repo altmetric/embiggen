@@ -2,13 +2,17 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.2] - 2016-11-28
+### Changed
+- Add another 1,505 Bitly Pro domains.
+
 ## [1.2.1] - 2016-08-02
-### Changes
-- Add another 2,320 shortener Bitly Pro domains.
+### Changed
+- Add another 2,320 Bitly Pro domains.
 
 ## [1.2.0] - 2016-05-10
 ### Changed
-- List of shorteners: it now includes 1293 Bitly pro domains.
+- List of shorteners: it now includes 1,293 Bitly pro domains.
 
 ## [1.1.0] - 2016-01-15
 ### Changed
@@ -21,6 +25,8 @@ project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First stable version of Embiggen and its API for expanding shortened links.
 
+[1.2.2]: https://github.com/altmetric/embiggen/releases/tag/v1.2.2
+[1.2.1]: https://github.com/altmetric/embiggen/releases/tag/v1.2.1
 [1.2.0]: https://github.com/altmetric/embiggen/releases/tag/v1.2.0
 [1.1.0]: https://github.com/altmetric/embiggen/releases/tag/v1.1.0
 [1.0.0]: https://github.com/altmetric/embiggen/releases/tag/v1.0.0
