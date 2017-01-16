@@ -2,7 +2,13 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.2.3] - 2016-01-04
+## [1.2.4] - 2017-01-16
+### Changed
+- Add another 561 domains from vanityurlshortners.com
+- Add six specific shorteners from Nature, Pocket, Ow.ly and others
+- Correct the v1.2.3 changelog date
+
+## [1.2.3] - 2017-01-04
 ### Changed
 - Add another 337 Bitly Pro domains.
 - Add Readcube's shortener.
@@ -30,6 +36,7 @@ project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First stable version of Embiggen and its API for expanding shortened links.
 
+[1.2.4]: https://github.com/altmetric/embiggen/releases/tag/v1.2.4
 [1.2.3]: https://github.com/altmetric/embiggen/releases/tag/v1.2.3
 [1.2.2]: https://github.com/altmetric/embiggen/releases/tag/v1.2.2
 [1.2.1]: https://github.com/altmetric/embiggen/releases/tag/v1.2.1
