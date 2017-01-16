@@ -1392,6 +1392,7 @@ drknbvr.co
 drlnfo.co
 drmd.me
 drmstr.com
+dromar.us
 drsadaqat.info
 drudge.tw
 dscvrn.pt
@@ -2007,6 +2008,7 @@ go.mitef.org
 go.msba.org
 go.mu.edu
 go.nasa.gov
+go.nature.com
 go.nautil.us
 go.nboa.org
 go.nhsp.uk
@@ -2284,6 +2286,7 @@ hspt.co
 hstry.is
 hsuk.co
 ht.420.com
+ht.ly
 htap.it
 htl.st
 htrne.ws
@@ -3279,6 +3282,7 @@ muttr.org
 muziktee.com
 mvc-sports.org
 mvf.club
+mvie.ws
 mvmbr.co
 mvmtwatch.co
 mvp.to
@@ -3478,6 +3482,7 @@ now.uz
 now.wthr.com
 nownet.me
 npctex.as
+npk.io
 nplsne.ws
 npnow.news
 npo.gs
@@ -3989,6 +3994,7 @@ pnsne.ws
 pnt.hn
 pnt.me
 po.st
+pocket.co
 pod.pet
 pojonews.co
 pokecon.link
