@@ -2,19 +2,19 @@
 
 A Ruby library to expand shortened URLs.
 
-**Current version:** 1.2.4  
+**Current version:** 1.2.5  
 **Supported Ruby versions:** 1.8.7, 1.9.2, 1.9.3, 2.0, 2.1, 2.2
 
 ## Installation
 
 ```
-gem install embiggen -v '~> 1.1'
+gem install embiggen -v '~> 1.2'
 ```
 
 Or, in your `Gemfile`:
 
 ```ruby
-gem 'embiggen', '~> 1.1'
+gem 'embiggen', '~> 1.2'
 ```
 
 ## Usage
@@ -81,17 +81,6 @@ Embiggen.configure do |config|
   config.shorteners = Embiggen::ShortenerList.new(%w(myshorten.er anoth.er))
   # or load from a file...
   config.shorteners = Embiggen::ShortenerList.new(File.readlines('shorteners.txt').map(&:chomp))
-end
-
-# Custom logic to attempt to expand every URI
-class ExpandEverything
-  def self.include?(_uri)
-    true
-  end
-end
-
-Embiggen.configure do |config|
-  config.shorteners = ExpandEverything
 end
 
 # Use the Bitly API to only expand URIs on Bitly Pro domains
@@ -218,7 +207,7 @@ Override the following settings:
 
 ## License
 
-Copyright © 2015-2016 Altmetric LLP
+Copyright © 2015-2017 Altmetric LLP
 
 Distributed under the MIT License.
 
