@@ -89,7 +89,7 @@ module Embiggen
       end
 
       it 'raises an error if a shortened URI does not redirect' do
-        stub_request(:head, 'http://bit.ly/bad').to_return(:status => 500)
+        stub_request(:get, 'http://bit.ly/bad').to_return(:status => 500)
         uri = described_class.new('http://bit.ly/bad')
 
         expect { uri.expand }.to raise_error(BadShortenedURI)
@@ -111,7 +111,7 @@ module Embiggen
 
       it 'retains the last URI if a shortened URI does not redirect' do
         stub_redirect('http://bit.ly/bad', 'http://bit.ly/bad2')
-        stub_request(:head, 'http://bit.ly/bad2').to_return(:status => 500)
+        stub_request(:get, 'http://bit.ly/bad2').to_return(:status => 500)
         uri = described_class.new('http://bit.ly/bad')
 
         last_uri = nil
@@ -126,21 +126,21 @@ module Embiggen
       end
 
       it 'raises a network error if the URI times out' do
-        stub_request(:head, 'http://bit.ly/bad').to_timeout
+        stub_request(:get, 'http://bit.ly/bad').to_timeout
         uri = described_class.new('http://bit.ly/bad')
 
         expect { uri.expand }.to raise_error(NetworkError)
       end
 
       it 'raises a network error if the connection resets' do
-        stub_request(:head, 'http://bit.ly/bad').to_raise(::Errno::ECONNRESET)
+        stub_request(:get, 'http://bit.ly/bad').to_raise(::Errno::ECONNRESET)
         uri = described_class.new('http://bit.ly/bad')
 
         expect { uri.expand }.to raise_error(NetworkError)
       end
 
       it 'raises a network error if the host cannot be reached' do
-        stub_request(:head, 'http://bit.ly/bad').to_raise(::Errno::EHOSTUNREACH)
+        stub_request(:get, 'http://bit.ly/bad').to_raise(::Errno::EHOSTUNREACH)
         uri = described_class.new('http://bit.ly/bad')
 
         expect { uri.expand }.to raise_error(NetworkError)
@@ -148,7 +148,7 @@ module Embiggen
 
       it 'retains the last URI if there is a network error' do
         stub_redirect('http://bit.ly/bad', 'http://bit.ly/bad2')
-        stub_request(:head, 'http://bit.ly/bad2').to_timeout
+        stub_request(:get, 'http://bit.ly/bad2').to_timeout
         uri = described_class.new('http://bit.ly/bad')
 
         begin
@@ -282,7 +282,7 @@ module Embiggen
     end
 
     def stub_redirect(short_url, expanded_url, status = 301)
-      stub_request(:head, short_url).
+      stub_request(:get, short_url).
         to_return(:status => status, :headers => { 'Location' => expanded_url })
     end
   end

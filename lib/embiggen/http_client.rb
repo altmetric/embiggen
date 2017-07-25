@@ -27,7 +27,7 @@ module Embiggen
       http.open_timeout = timeout
       http.read_timeout = timeout
 
-      http.head(uri.request_uri)
+      http.get(uri.request_uri)
     end
   end
 end
