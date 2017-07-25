@@ -2,9 +2,19 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2017-07-25
+### Changed
+- Added 1,356 new shorteners (including Amazon's)
+- Switched to using a GET request to follow shortened links to improve
+  compatibility with services that reject HEAD requests (e.g. Amazon)
+
+## [1.2.5] - 2017-03-10
+### Changed
+- Added another 531 shorteners
+
 ## [1.2.4] - 2017-01-16
 ### Changed
-- Add another 561 domains from vanityurlshortners.com
+- Add another 561 domains from vanityurlshorteners.com
 - Add six specific shorteners from Nature, Pocket, Ow.ly and others
 - Correct the v1.2.3 changelog date
 
@@ -36,6 +46,8 @@ project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First stable version of Embiggen and its API for expanding shortened links.
 
+[1.3.0]: https://github.com/altmetric/embiggen/releases/tag/v1.3.0
+[1.2.5]: https://github.com/altmetric/embiggen/releases/tag/v1.2.5
 [1.2.4]: https://github.com/altmetric/embiggen/releases/tag/v1.2.4
 [1.2.3]: https://github.com/altmetric/embiggen/releases/tag/v1.2.3
 [1.2.2]: https://github.com/altmetric/embiggen/releases/tag/v1.2.2
