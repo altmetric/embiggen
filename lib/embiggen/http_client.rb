@@ -2,6 +2,12 @@ require 'embiggen/error'
 require 'net/http'
 
 module Embiggen
+  class GetWithoutResponse < ::Net::HTTPRequest
+    METHOD = 'GET'.freeze
+    REQUEST_HAS_BODY = false
+    RESPONSE_HAS_BODY = false
+  end
+
   class HttpClient
     attr_reader :uri, :http
 
@@ -24,10 +30,11 @@ module Embiggen
     private
 
     def request(timeout)
+      request = GetWithoutResponse.new(uri.request_uri)
       http.open_timeout = timeout
       http.read_timeout = timeout
 
-      http.head(uri.request_uri)
+      http.request(request)
     end
   end
 end
