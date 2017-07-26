@@ -2,7 +2,7 @@ require 'embiggen/error'
 require 'net/http'
 
 module Embiggen
-  class GetWithoutResponse < ::Net::HTTPRequest
+  class GetWithoutBody < ::Net::HTTPRequest
     METHOD = 'GET'.freeze
     REQUEST_HAS_BODY = false
     RESPONSE_HAS_BODY = false
@@ -30,7 +30,7 @@ module Embiggen
     private
 
     def request(timeout)
-      request = GetWithoutResponse.new(uri.request_uri)
+      request = GetWithoutBody.new(uri.request_uri)
       http.open_timeout = timeout
       http.read_timeout = timeout
 
