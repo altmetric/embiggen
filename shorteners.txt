@@ -1519,6 +1519,7 @@ cook.ba
 cook.meali.me
 cooks.io
 coolb.lu
+coolscul.pt
 coop.uk
 copdf.co
 coptom.uk
@@ -1898,6 +1899,7 @@ dlvr.it
 dlvroo.it
 dly.do
 dlycncpt.me
+dlypr.es
 dmil.uk
 dmn.hm
 dmntd.ca
@@ -2148,6 +2150,7 @@ emc.im
 emia.us
 emily.gift
 emilyley.co
+emktr.co
 emmi.co
 emn.online
 emonight.la
@@ -3521,6 +3524,7 @@ intlifem.ag
 intlrv.rs
 into.gl
 into.tv
+intouch.cc
 intr.mx
 intrin.io
 intuit.me
@@ -5458,6 +5462,7 @@ ows.la
 owy.mn
 owyd.co
 oxelt.gl
+oxf.am
 oxford.ly
 oxhorn.it
 oxygen.tv
@@ -6276,6 +6281,7 @@ sbux.co
 sbux.jp
 sbx.cm
 sc.cr
+sc.mp
 sc.org
 scap.in
 scasera.com
@@ -6997,6 +7003,7 @@ tbo.ly
 tbp.im
 tcare.co
 tcat.tc
+tcbm.ag
 tcc.io
 tcdy.co
 tch.fm
@@ -7059,6 +7066,7 @@ tfir.es
 tfl.to
 tfne.ws
 tft.link
+tgam.ca
 tgcol.com
 tgdn.co
 tgilinks.com
@@ -7752,6 +7760,7 @@ viajo.bi
 viajwat.ch
 vibedrate.co
 vice.fm
+vice.video
 vicesports.de
 viciousre.co
 vicpk.co
@@ -8088,6 +8097,7 @@ wrdm.ag
 wrhstol.com
 writ.rs
 wrkhr.co
+wrld.bg
 wrldbra.in
 wrp.la
 wrt.lv
