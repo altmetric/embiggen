@@ -88,6 +88,7 @@
 3dscan.expert
 3dwa.de
 3fm.nu
+3ina.eu
 3md.co
 3nt.co
 3rd.gr
@@ -102,6 +103,7 @@
 49rs.me
 4bet.poker
 4di.co
+4docs.news
 4ms.me
 4sq.com
 4u.de
@@ -155,6 +157,7 @@ a.getonce.com
 a.gg
 a.ll.st
 a.ln.com.ar
+a.msf.es
 a.nf
 a.nursegrid.com
 a.pitria.com
@@ -171,6 +174,7 @@ a2w.us
 a360.co
 a4passes.com
 a4tt.us
+aa-sa.co
 aa.cx
 aaahe.at
 aalbc.it
@@ -207,6 +211,7 @@ abu.sx
 acad.my
 acc.nz
 accdn.tl
+access.live
 accgov.com
 accntu.re
 acco.mp
@@ -241,6 +246,7 @@ acton.li
 acu.re
 acumati.ca
 acura.us
+acus.org
 ad.vu
 ad6.nl
 adage.com
@@ -334,8 +340,11 @@ ahmi.co
 ahs.mn
 ahwd.tv
 aia.ag
+aigadsgn.org
+aigaeod.co
 aihl.net
 air-mil.es
+airww.co
 aitr.co
 aja.me
 ajade.link
@@ -424,6 +433,7 @@ amped.asia
 ampol.no
 ampr.gs
 amqro.mx
+amrap.us
 amrit.am
 amsa.co
 amsho.ws
@@ -439,6 +449,7 @@ an.insure
 ana.ms
 anabel.mx
 anas.cc
+anc.si
 ancstry.me
 anderso.nu
 andr.tv
@@ -484,6 +495,7 @@ apexcie.co
 apha.us
 api.co
 api.pw
+apia.vote
 apl.tv
 apne.ws
 apoadhoc.de
@@ -523,6 +535,7 @@ arkly.ie
 arkn.ws
 arksi.de
 arlgp.co
+arliq.co
 armagazine.com
 armory.tf
 arnest.co
@@ -573,6 +586,7 @@ at.nick.asia
 at.nick.com
 at.olx.ph
 at.pw.org
+at.virginia.edu
 at.wftv.com
 atarnotes.me
 atavus.co
@@ -682,6 +696,7 @@ babyolo.gy
 bacn.me
 badtimi.ng
 baeble.me
+baguy.co
 bailey.gr
 bajaclima.com
 bajaurl.com
@@ -786,6 +801,7 @@ better.tg
 betvic.to
 betway.me
 betway.mx
+betzold.biz
 bev.bz
 beyon.me
 bf10.co
@@ -869,6 +885,7 @@ ble.ac
 bleecker.me
 blfmag.com
 blgwd.us
+blinc.media
 blip.sh
 blizz.ly
 blj.co
@@ -976,6 +993,7 @@ brandify.link
 brant.news
 brasegu.ro
 bravo.ly
+bravou.re
 brbx.in
 brby.co
 brcc.coffee
@@ -1041,6 +1059,7 @@ btd.sg
 btinfo.co
 btl.today
 btlbx.co
+btmt.in
 btpne.ws
 btprt.dj
 bubs.me
@@ -1117,6 +1136,7 @@ cabos.xyz
 cabot.co
 cada.at
 caireinc.io
+cairnspo.st
 cajamar.info
 cal.md
 cal.ms
@@ -1193,6 +1213,7 @@ cbks.co
 cble.co
 cbnt.it
 cboo.st
+cbre.co
 cbridge.to
 cbshe.com
 cbsi.am
@@ -1211,6 +1232,7 @@ ccftl.org
 ccif.me
 ccis.co
 ccl.social
+cclg.uk
 ccmm.li
 ccompt.es
 cctea.ch
@@ -1292,6 +1314,7 @@ chicgo.co
 chikara.cf
 chil.is
 child.so
+chilmark.co
 chilp.it
 chim.pn
 chip.tl
@@ -1351,6 +1374,7 @@ cirque.me
 cisn.co
 cisnational.org
 citi.asia
+citi.me
 citi.us
 citymun.ch
 citypo.lc
@@ -1401,6 +1425,7 @@ cllb.link
 cln.me
 clnenergy.org
 clnq.co
+cloc.al
 clop.in
 cloudcoach.me
 cloudup.com
@@ -1521,6 +1546,7 @@ cooks.io
 coolb.lu
 coolscul.pt
 coop.uk
+coos.to
 copdf.co
 coptom.uk
 copy.bz
@@ -1569,6 +1595,7 @@ craftsy.me
 crags.co
 craig.bz
 crate.us
+cratercraft.co
 crazysal.es
 crch.co
 crdev.us
@@ -1697,6 +1724,7 @@ d.iscour.se
 d.me
 d.pr
 d.responsabl.es
+d.truemoney.com
 d.zle.io
 d2e.co
 d2shr.co
@@ -1762,6 +1790,7 @@ ddar.io
 ddc.cr
 ddls.to
 ddnnews.com
+ddpy.co
 ddut.ch
 de.noisey.com
 de.vice.com
@@ -1824,10 +1853,12 @@ dfzrad.io
 dger.at
 dgi.to
 dgl.li
+dgrant.co
 dgt.ltd
 dgtl.ag
 dhf.io
 dhnow.org
+dhsdata.com
 dhurl.org
 dhworld.me
 di.gg
@@ -1918,6 +1949,7 @@ do.co
 do.my
 do206.co
 do3.co
+doa.re
 dochos.co
 dockr.ly
 docs.agiusa.com
@@ -1996,6 +2028,7 @@ dspy.me
 dsr.gd
 dsruptn.com
 dst.at
+dstudents.uk
 dsuri.net
 dsxn.de
 dtbl.org
@@ -2030,6 +2063,7 @@ dyer.nz
 dyna.me
 e-fut.net
 e-preneur.de
+e.at
 e.giuvlipen.com
 e.ntd.tv
 e180.co
@@ -2088,6 +2122,7 @@ edmjr.nl
 edmo.do
 edmu.in
 ednxt.co
+edpo.st
 edpsych.us
 edsm.co
 edtech.team
@@ -2114,6 +2149,7 @@ efn.tv
 eg17.la
 egd.cat
 egl.to
+eh.digital
 ehf.nz
 ehour.me
 eht.social
@@ -2126,6 +2162,7 @@ ekd.be
 el-mun.do
 elcedu.net
 elef.in
+elefant.es
 elefant.sale
 elegantthem.es
 element.ht
@@ -2233,6 +2270,7 @@ erlc.co
 ernieb.al
 es.pn
 esade.me
+esau.social
 esb.nu
 escpeuro.pe
 esel.cc
@@ -2408,6 +2446,7 @@ fgtix.to
 fiap.me
 fibro.coach
 fido.ly
+fidose.com
 fiel.in
 fifa.to
 fifa.wtf
@@ -2431,6 +2470,7 @@ firstrain.it
 firsturl.de
 firsturl.net
 fishtr.hk
+fisv.co
 fit.ly
 fitbit.link
 fithit.cf
@@ -2556,6 +2596,7 @@ freshn.es
 freshpet.co
 fri.center
 frmp.it
+frn.co
 frnd.su
 frnds.eu
 frntr.co
@@ -2574,6 +2615,7 @@ fsolo.co
 fstrgdwns.com
 fstsprng.co
 fsune.ws
+fsv.link
 ftbl.ma
 ftcy.co
 ftlk.org
@@ -2633,6 +2675,7 @@ galvtx.com
 gamehou.se
 ganne.tt
 gap.us
+gardeni.st
 garr.in
 garyvee.com
 gates.ly
@@ -2661,6 +2704,7 @@ gctru.st
 gdb.tv
 gdcg.co
 gdfl.co
+gdgd.io
 gdlgdl.mx
 gdlgob.mx
 gdms.news
@@ -2889,6 +2933,7 @@ go.ro.my.com
 go.robozome.com
 go.savebats.org
 go.semarak.news
+go.sendo.vn
 go.sentinel.org
 go.she.com
 go.shell.com
@@ -2944,6 +2989,7 @@ goeko.co
 gofly.us
 gofor.cd
 gofos.co
+gofwd.co
 goget.fund
 gogo.to
 gogob.us
@@ -2967,11 +3013,13 @@ gonol.es
 gonyc.co
 goo.gl
 good.ly
+goop.be
 gopards.co
 gopok.es
 goponi.es
 goprov.co
 gopsu.info
+gosh.sh
 goshrink.com
 gospel.mk
 gospu.rs
@@ -3042,6 +3090,7 @@ grpcemx.org
 grpy.us
 grt.st
 grumpy.cat
+grvty.link
 grz.cm
 gsip.se
 gsk.to
@@ -3052,6 +3101,7 @@ gsnccp.org
 gsob.co
 gsto.co
 gstv.us
+gswell.fund
 gt-us.co
 gtclsr.com
 gtcvrd.am
@@ -3174,6 +3224,7 @@ hheroes.bg
 hhi.hub.am
 hi.monterail.co
 hia.li
+hiblood.me
 hiderefer.com
 hied.be
 highju.mp
@@ -3236,6 +3287,7 @@ hofra.sr
 holbrook.travel
 holi.dog
 hollywood.li
+hologr.am
 holts.io
 homa.ge
 homedecorsto.re
@@ -3257,6 +3309,7 @@ hpfy.co
 hpstm.tc
 hrbar.co
 hrbl.me
+hrblock.io
 hrc.io
 hrd.cm
 href.in
@@ -3351,6 +3404,7 @@ i.sgt.gr
 i.stv.tv
 i.subselfie.com
 i.swish.design
+i.upv.es
 i.waploaded.com
 i22.me
 i24.us
@@ -3497,6 +3551,7 @@ inmktg.it
 inmn.io
 innamincka.pub
 inno.im
+ino.to
 inq.ph
 inquir.ly
 insder.co
@@ -3530,6 +3585,7 @@ intrin.io
 intuit.me
 inur.se
 inv.lv
+invasiv.es
 invent.ge
 invest.ec
 invs.io
@@ -3549,6 +3605,7 @@ iqza.in
 ir.dbr.fm
 ir.tn.com.ar
 ira.ist
+irinne.ws
 irn.bz
 irn.lk
 irnut.co
@@ -3620,6 +3677,7 @@ jalo.ps
 jama.md
 jamcity.me
 jamila.ro
+jams.ai
 janglo.co
 jano.sh
 jaredamy.co
@@ -3668,6 +3726,7 @@ jijr.com
 jillee.co
 jjay.cc
 jkr.gl
+jlabs.tv
 jli.st
 jlyou.org
 jmik.es
@@ -3684,6 +3743,7 @@ jobtracker.me
 joeas.tn
 joeb.me
 joestra.us
+joinilca.org
 jomill.co
 jone.us
 joom.la
@@ -3709,6 +3769,7 @@ js.is
 jsfa.co
 jshen.me
 jsm.ag
+jsonl.in
 jsp.hn
 jsth.co
 jtmch.co
@@ -3743,6 +3804,8 @@ karriere-i.ch
 katap.lt
 kateso.co
 katja.la
+kaust.link
+kaust.news
 kawasa.ki
 kbn.im
 kbr.me
@@ -3758,10 +3821,12 @@ kcts.tv
 kdg.link
 kdm.io
 kdmy.co
+kdpaint.party
 ke-we.net
 keepa.ch
 keepupweb.us
 kel.by
+kelela.link
 kell.gg
 kellyr.me
 kempte.ch
@@ -3835,6 +3900,7 @@ knld.co
 knlg.net
 knot.ly
 knot1.co
+knowmag.org
 knoxne.ws
 knsy.in
 kntr.co
@@ -3901,6 +3967,8 @@ l.baravalle.com
 l.blivakker.no
 l.bonpoint.com
 l.drinkbird.com
+l.eastern.in
+l.florida.pe
 l.gamespot.com
 l.gamified.uk
 l.his-bkk.com
@@ -3963,6 +4031,7 @@ lbr8.us
 lby.co
 lcbo.me
 lcdisability.uk
+lcef.us
 lcrf.org
 lcry.us
 lcsun.co
@@ -4150,6 +4219,7 @@ loaded.online
 logo.to
 logo.tv
 lohud.us
+lonerwolf.co
 longrep.ly
 lons.co
 loot.cr
@@ -4238,6 +4308,7 @@ m.kshb.com
 m.nbr.org
 m.odu.la
 m.rdh.com
+m.sesame.org
 m.tiny.pr
 m.tri.be
 m.uexternado.co
@@ -4336,6 +4407,7 @@ mc-author.com
 mc-d.co
 mcaf.ee
 mcafee.ly
+mccoll.center
 mcd.to
 mcgam.es
 mcgf.in
@@ -4348,6 +4420,7 @@ mclnd.nz
 mcmx.in
 mcstr.net
 mctr.st
+mcy.nz
 mcys.co
 mczn.ca
 mday.biz
@@ -4389,6 +4462,7 @@ memne.ws
 menf.it
 mensw.com
 merct.us
+meres.uk
 merky.de
 meso.gd
 met.org
@@ -4453,8 +4527,10 @@ minnpo.st
 mins.pub
 mintel.tv
 mintne.ws
+minu.to
 minurl.fr
 miram.ax
+mirel.es
 mirr.im
 mis.sn
 mis.su
@@ -4551,6 +4627,7 @@ mochithin.gs
 moctu.com
 mod.cm
 moda.cm
+modefi.co
 modo.ly
 modpod.ge
 moe.vg
@@ -4567,6 +4644,7 @@ moms.com.es
 moms.ly
 money.us
 moneycrashe.rs
+mongodb.social
 monitor.cm
 monov.me
 monsanto.info
@@ -4647,6 +4725,7 @@ msll.us
 mslnk.bz
 msocial.bz
 mspats.cc
+mspm.ag
 mspu.co
 msr.lc
 msrt.us
@@ -4675,6 +4754,7 @@ mtrs.co
 mtrz.us
 mtsilver.co
 mtswld.com
+mttr.io
 mttr.net
 mtu.news
 mtv.tl
@@ -4768,6 +4848,7 @@ mysav.in
 mysheboygan.us
 mysp.ac
 mytct.co
+mythrive.uk
 myurl.in
 myveg.as
 myw.lu
@@ -4832,6 +4913,7 @@ nblo.gs
 nbn.li
 nbn.tm
 nbs.io
+nbvt.cf
 nca.st
 ncdp.us
 ncfit.club
@@ -4871,6 +4953,7 @@ new.pr
 newatl.as
 newde.al
 neweuro.pe
+newfm.win
 newint.media
 newmansoc.org
 newmusi.cc
@@ -4904,6 +4987,7 @@ ngtr.uk
 nhdisplay.com
 nhhotel.to
 nhsh.scot
+nhwat.ch
 nicolesy.me
 nie.mn
 niel.sn
@@ -4944,6 +5028,7 @@ nndad.co
 nnn.is
 no.b9.com.br
 no.meo.pt
+noah.do
 nobilis.io
 noble.li
 nobody.surf
@@ -4993,6 +5078,7 @@ nrcc.me
 nrdry.net
 nrlc.cc
 nrrr.us
+nsbk.co
 nsdx.uk
 nsfw.in
 nslp.co
@@ -5006,6 +5092,7 @@ ntbx.co
 ntl.bike
 ntl.ms
 ntnl.org.nz
+ntr2.mx
 ntrda.me
 ntuc.co
 ntv.ac
@@ -5067,6 +5154,7 @@ nzu.lu
 nzxt.co
 o-x.fr
 o.ea.com
+o98.tv
 oads.co
 oak.ly
 oastyouth.co.uk
@@ -5078,6 +5166,7 @@ obsev.it
 obsso.in
 oc.cm
 oc1.us
+ocaq.news
 occ.london
 occip.it
 occmx.net
@@ -5132,6 +5221,7 @@ on.3nz.it
 on.4029tv.com
 on.abc10.com
 on.abc15.com
+on.activher.com
 on.adn.com
 on.ae.com
 on.allure.com
@@ -5161,6 +5251,7 @@ on.cfr.org
 on.cgiar.org
 on.china.cn
 on.citi.us
+on.clark.com
 on.cmt.com
 on.cnn.com
 on.contv.com
@@ -5295,6 +5386,7 @@ on.sctimes.com
 on.self.com
 on.si.com
 on.sny.tv
+on.splice.com
 on.sport1.de
 on.su.org
 on.sugarsca.pe
@@ -5314,6 +5406,7 @@ on.tz.de
 on.uc.edu
 on.ufc.com
 on.uli.org
+on.umss.io
 on.unesco.org
 on.ventrachicago.com
 on.vh1.com
@@ -5392,6 +5485,7 @@ oobld.com
 oof.news
 ookb.ee
 op-lib.ch
+op.cineville.nl
 opb.is
 opc.to
 opea.st
@@ -5529,6 +5623,7 @@ pck.rs
 pcktu.com
 pcma.co
 pco.lt
+pcos.ch
 pcskin.care
 pdig.me
 pdjrnl.com
@@ -5547,6 +5642,7 @@ pen.live
 pennh.cc
 pennmasa.la
 pens.pe
+people.tv
 pep.si
 pepe.ag
 pepsi.co
@@ -5557,6 +5653,7 @@ pers.sl
 perthfe.st
 pes.ca
 pescor.eu
+petar.cl
 petcu.be
 petfndr.co
 petro.li
@@ -5650,8 +5747,10 @@ plusroi.co
 plymu.ni
 plyvnyl.co
 pmcache.co
+pmdd.life
 pmj.am
 pmkrs.co
+pmny.in
 pmsfl.us
 pn.md
 pnae.us
@@ -5827,6 +5926,7 @@ qc.st
 qcpri.de
 qctim.es
 qhne.ws
+qimag.uk
 qkme.me
 qlima.cool
 qlll.co
@@ -5878,6 +5978,7 @@ rad-r.us
 rad.ical.io
 radio2.nu
 radio4.nu
+radiofr.ee
 radv.st
 raen.us
 rafam.co
@@ -5887,6 +5988,7 @@ railn.ws
 rainm.kr
 ramm.st
 rancher.it
+randl.ph
 randstad.us
 randstadsr.com
 rapfav.co
@@ -5917,6 +6019,7 @@ rclk.ly
 rcll.nl
 rcm.nu
 rcmco.co
+rcnvg.com
 rcph.us
 rd.gt
 rd.io
@@ -5933,6 +6036,7 @@ re.pn
 rea.to
 read.bi
 read.spoke.news
+readsn.com
 readthis.ca
 realart.is
 realas.co
@@ -6019,6 +6123,7 @@ ride.st
 rif.ai
 riff.me
 rifle.co
+rightasra.in
 rij.cc
 ring.ly
 ringcentr.al
@@ -6033,11 +6138,13 @@ rip.city
 risas.co
 risd.cc
 risesmart.us
+rituals.world
 riz.gd
 rjnews.is
 rjpp.ca
 rlauren.co
 rldd.co
+rlghd.co
 rll.bz
 rlstl.com
 rly.pt
@@ -6161,6 +6268,7 @@ s.500.co
 s.acco.org
 s.acmt.net
 s.aln.sg
+s.atea.no
 s.chool.ch
 s.cut.org.br
 s.daserste.de
@@ -6261,7 +6369,9 @@ savvy.life
 saw.fish
 saxion.to
 says.getdoc.co
+sb.gl
 sbbc.co
+sbc2018.vote
 sbdr.co
 sbi.me
 sbird.co
@@ -6305,6 +6415,7 @@ scimuseumok.org
 sciof.us
 scion.us
 sclpro.co
+sclpt.co
 scm.fm
 scoble.it
 sconfir.com
@@ -6337,6 +6448,7 @@ sdop.co
 sdp.tw
 sdpbne.ws
 sdprosocial.com
+sdrenka.co
 sdrl.tv
 sdrv.ms
 sdtk.fm
@@ -6390,6 +6502,7 @@ ses.ac
 setd.es
 seton.care
 sewat.ch
+sexyveggie.co
 sfa.st
 sfchron.cl
 sfcne.ws
@@ -6422,6 +6535,7 @@ sgk.mn
 sgm.co
 sgn.me
 sgnl.link
+sgr.fm
 sgr.is
 sh-m.ag
 sh.enjoyb.fr
@@ -6431,6 +6545,7 @@ shakr.ly
 shape.rs
 shar.es
 share.bf.vu
+share.ipsf.org
 sharecare.to
 shbos.ch
 shc.is
@@ -6448,6 +6563,7 @@ shkids.co
 shknws.com
 shksp.re
 shkykns.co
+shltrcy.org
 shm.im
 shmag.co
 shmnt.me
@@ -6535,6 +6651,7 @@ skdl.it
 skft.it
 ski.do
 skimmth.is
+skits.cc
 skl.sh
 sklar.co
 skoll.wf
@@ -6548,6 +6665,7 @@ skycat.ch
 skyhrse.com
 skynz.co
 skyscan.it
+sl.a21.org
 slalom.ws
 slate.me
 slct.al
@@ -6632,6 +6750,7 @@ snipr.com
 snipurl.com
 snl.recipes
 snlg.ht
+snma.me
 snocd.org
 snow.sh
 snowtrex.me
@@ -6675,6 +6794,7 @@ som.li
 some.ly
 somer.st
 sook.io
+soph.so
 sopit.as
 soply.co
 sopurr.co
@@ -6690,6 +6810,7 @@ soultri.be
 sounds.am
 soup.ps
 souq.link
+sout.hu
 sov.mn
 soy.lt
 soyespiritu.al
@@ -6728,6 +6849,7 @@ splk.it
 spon.de
 spont.ly
 spoon.graphics
+sportng.in
 sports-ne.ws
 sportsgirl.in
 sportsgrid.com
@@ -6885,9 +7007,11 @@ supertl.me
 supr.cl
 supr.cr
 sups.us
+sur.om.net
 sure.sc
 surfdo.me
 surfl.in
+surg.ws
 surjdenver.co
 surl.co.uk
 surl.hu
@@ -6909,6 +7033,7 @@ swee.ps
 sweetm.ag
 sweetnbite.com
 sweitzman.com
+swfilm.co
 swgoh.org
 swi.je
 swissin.fo
@@ -6924,6 +7049,7 @@ swthm.co
 swurv.in
 sxch.io
 sxsw.is
+sy.cr
 syb.la
 sycamor.es
 sydfe.st
@@ -7053,12 +7179,14 @@ telepacifi.co
 tem.mn
 tempo.ai
 tempote.am
+tendermaker.eu
 tenres.com
 tensharp.info
 ter.ly
 testclever.ly
 testu.be
 tesu.social
+texas.mn
 tfas.co
 tfd.bz
 tfg.li
@@ -7239,6 +7367,7 @@ tlrd.co
 tlrd.us
 tlrk.it
 tls.al
+tlsb.io
 tlsel.it
 tlsi.co
 tlsur.net
@@ -7269,6 +7398,7 @@ tnn24.tv
 tnne.ws
 tnsn.de
 tnsne.ws
+tnt.ist
 tnw.co
 tnw.to
 tny.com
@@ -7347,6 +7477,7 @@ tpv.sr
 tpya.ps
 tq.ma
 tqn.me
+tquiet.us
 tr-a.co
 tr.co
 tr.im
@@ -7359,6 +7490,7 @@ tramlin.es
 transenv.eu
 travelcb.com
 travelocity.us
+travelok.la
 travl.rs
 trb.tv
 trbt.me
@@ -7416,6 +7548,7 @@ trusu.biz
 trvllr.co
 trycvr.co
 tryo.co
+ts.la
 tsabd.com
 tsatx.org
 tsb.ba
@@ -7424,6 +7557,7 @@ tsl.cm
 tsmag.co
 tsmlab.org
 tso.media
+tsp.sh
 tspne.ws
 tsptry.com
 tsri.co
@@ -7440,6 +7574,7 @@ ttshr.co
 ttvs.org
 tu.am
 tu.inmoobi.com
+tu.tupi.fm
 tub.nl
 tucan.travel
 tucd.co
@@ -7485,6 +7620,7 @@ twlnk.co
 twou.co
 twrt.me
 tws.io
+twsmith.us
 twsnow.com
 twt.sk
 twtr.to
@@ -7502,6 +7638,7 @@ txt.bo
 tybo.co
 tylrgt.rs
 tylt.it
+tymp.uk
 typ.st
 typehype.eu
 tyt.my
@@ -7526,16 +7663,19 @@ uafly.co
 ub0.cc
 ubc.vc
 ubef.tv
+ubere.ng
 ublz.co
 ubm.io
 ubne.ws
 ubnt.link
 ubr.to
+ubrf.review
 ubu.one
 uccf.at
 ucfknights.co
 ucla.in
 uclefs.uk
+ucollege.du.edu
 uconnhuski.es
 ucsfh.org
 ud.wtf
@@ -7564,6 +7704,7 @@ umc.fm
 umcareer.center
 umg.fm
 umhealth.me
+umiami.health
 umicheng.in
 umlib.us
 umm.gd
@@ -7805,6 +7946,7 @@ vln.ro
 vltath.co
 vm.lc
 vmgiving.co
+vmkt.co
 vmobil.ec
 vmt.link
 vmw.re
@@ -7846,6 +7988,7 @@ vrscou.to
 vrsl.nu
 vrsn.cc
 vrt.as
+vrt.nu
 vrtas.co
 vrtu.us
 vruchtvle.es
@@ -7981,6 +8124,7 @@ wepave.it
 wervirg.in
 wescodi.st
 west.tn
+westbred.ag
 westm.in
 wet.pt
 weteach.me
@@ -7992,8 +8136,10 @@ wfc.world
 wfpnet.co
 wfr.re
 wfts.tv
+wfu.law
 wgaz.ca
 wgnr.es
+wgrd.tech
 wgtn.cc
 wh.gov
 wha.fyi
@@ -8062,6 +8208,7 @@ wmg.cc
 wmp.life
 wnatl.com
 wncn.tv
+wndrfl.co
 wndrful.co
 wnrck.org
 wnstn.org.uk
@@ -8194,6 +8341,7 @@ y.ahoo.it
 y2u.be
 yalesom.io
 yamaha.us
+yat.life
 yatuc.com
 yay.deals
 yaythis.me
@@ -8234,6 +8382,7 @@ ysm.social
 ysmk.org
 ysta.re
 yte.fyi
+ytp.mx
 ytu.io
 ytwn.in
 yuarel.com
@@ -8259,6 +8408,7 @@ zemt.io
 zeni.to
 zezu.xyz
 zgal.re
+zglr.pw
 zhora.co
 zi.ma
 zi.mu
