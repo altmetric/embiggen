@@ -39,7 +39,7 @@ GEM
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.5)
-    safe_yaml (1.0.4)
+    safe_yaml (1.0.5)
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -55,4 +55,4 @@ DEPENDENCIES
   webmock (~> 1.21)
 
 BUNDLED WITH
-   1.16.1
+   1.17.3
