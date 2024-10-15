@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'set'
 require 'embiggen/shortener_list'
 
 module Embiggen
