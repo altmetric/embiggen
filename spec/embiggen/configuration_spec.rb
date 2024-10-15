@@ -40,8 +40,8 @@ module Embiggen
       end
 
       it 'can be overridden' do
-        expect { described_class.shorteners << 'foo.bar' }.
-          to change { described_class.shorteners.size }.by(1)
+        expect { described_class.shorteners << 'foo.bar' }
+          .to change { described_class.shorteners.size }.by(1)
       end
 
       after do

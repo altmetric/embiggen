@@ -24,7 +24,8 @@ module Embiggen
       response.fetch('Location')
     rescue StandardError, ::Timeout::Error => e
       raise NetworkError.new(
-        "could not follow #{uri}: #{e.message}", uri)
+        "could not follow #{uri}: #{e.message}", uri
+      )
     end
 
     private
