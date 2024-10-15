@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## UNRELEASED - 2024-10-15
+### Changed
+- Modernise dev dependencies
+- Replace Travis CI with GitHub Actions (remove Hound configuration)
+- Add house_style and apply the corrections
+- Change the supporting Ruby versions to 2.7 onwards
+
 ## [1.5.0] - 2018-01-23
 ### Changed
 - Added 150 new Bitly Pro domain shorteners
