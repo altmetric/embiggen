@@ -22,9 +22,13 @@ module Embiggen
       return unless response.is_a?(::Net::HTTPRedirection)
 
       response.fetch('Location')
-    rescue StandardError, ::Timeout::Error => e
+    rescue ::Timeout::Error => e
       raise NetworkError.new(
-        "could not follow #{uri}: #{e.message}", uri
+        "Timeout::Error: could not follow #{uri}: #{e.message}", uri
+      )
+    rescue StandardError => e
+      raise NetworkError.new(
+        "StandardError: could not follow #{uri}: #{e.message}", uri
       )
     end
 
