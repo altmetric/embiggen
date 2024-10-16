@@ -67,8 +67,8 @@ module Embiggen
         stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
         uri = described_class.new('http://bit.ly/1')
 
-        expect { uri.expand(:redirects => 2) }.
-          to raise_error(TooManyRedirects)
+        expect { uri.expand(redirects: 2) }
+          .to raise_error(TooManyRedirects)
       end
 
       it 'retains the last URI when redirecting too many times' do
@@ -80,7 +80,7 @@ module Embiggen
         last_uri = nil
 
         begin
-          uri.expand(:redirects => 2)
+          uri.expand(redirects: 2)
         rescue TooManyRedirects => ex
           last_uri = ex.uri
         end
@@ -89,7 +89,7 @@ module Embiggen
       end
 
       it 'raises an error if a shortened URI does not redirect' do
-        stub_request(:get, 'http://bit.ly/bad').to_return(:status => 500)
+        stub_request(:get, 'http://bit.ly/bad').to_return(status: 500)
         uri = described_class.new('http://bit.ly/bad')
 
         expect { uri.expand }.to raise_error(BadShortenedURI)
@@ -111,7 +111,7 @@ module Embiggen
 
       it 'retains the last URI if a shortened URI does not redirect' do
         stub_redirect('http://bit.ly/bad', 'http://bit.ly/bad2')
-        stub_request(:get, 'http://bit.ly/bad2').to_return(:status => 500)
+        stub_request(:get, 'http://bit.ly/bad2').to_return(status: 500)
         uri = described_class.new('http://bit.ly/bad')
 
         last_uri = nil
@@ -188,7 +188,7 @@ module Embiggen
         stub_redirect('http://bit.ly/3', 'http://bit.ly/4')
         uri = described_class.new(URI('http://bit.ly/1'))
 
-        expect { uri.expand(:redirects => 2) }.to raise_error(TooManyRedirects)
+        expect { uri.expand(redirects: 2) }.to raise_error(TooManyRedirects)
       end
 
       it 'uses the threshold from the configuration' do
@@ -282,8 +282,8 @@ module Embiggen
     end
 
     def stub_redirect(short_url, expanded_url, status = 301)
-      stub_request(:get, short_url).
-        to_return(:status => status, :headers => { 'Location' => expanded_url })
+      stub_request(:get, short_url)
+        .to_return(status: status, headers: { 'Location' => expanded_url })
     end
   end
 end

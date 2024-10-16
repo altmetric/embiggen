@@ -10,10 +10,13 @@ Gem::Specification.new do |s|
   s.authors = ['Paul Mucur', 'Jonathan Hernandez']
   s.email = 'support@altmetric.com'
   s.homepage = 'https://github.com/altmetric/embiggen'
-  s.files = %w(README.md LICENSE shorteners.txt) + Dir['lib/**/*.rb']
+  s.files = %w[README.md LICENSE shorteners.txt] + Dir['lib/**/*.rb']
   s.test_files = Dir['spec/**/*.rb']
 
   s.add_dependency('addressable', '~> 2.3')
-  s.add_development_dependency('rspec', '~> 3.2')
-  s.add_development_dependency('webmock', '~> 1.21')
+
+  s.add_development_dependency('rspec')
+  s.add_development_dependency('webmock')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('house_style')
 end

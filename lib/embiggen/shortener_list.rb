@@ -1,5 +1,4 @@
 require 'forwardable'
-require 'set'
 
 module Embiggen
   class ShortenerList

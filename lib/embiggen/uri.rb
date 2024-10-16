@@ -19,8 +19,8 @@ module Embiggen
       redirects = extract_redirects(request_options)
       location = follow(request_options)
 
-      self.class.new(location).
-        expand(request_options.merge(:redirects => redirects - 1))
+      self.class.new(location)
+        .expand(request_options.merge(redirects: redirects - 1))
     end
 
     def shortened?
@@ -31,8 +31,11 @@ module Embiggen
 
     def extract_redirects(request_options = {})
       redirects = request_options.fetch(:redirects) { Configuration.redirects }
-      fail TooManyRedirects.new(
-        "following #{uri} reached the redirect limit", uri) if redirects.zero?
+      if redirects.zero?
+        fail TooManyRedirects.new(
+          "following #{uri} reached the redirect limit", uri
+        )
+      end
 
       redirects
     end
@@ -41,8 +44,11 @@ module Embiggen
       timeout = request_options.fetch(:timeout) { Configuration.timeout }
 
       location = http_client.follow(timeout)
-      fail BadShortenedURI.new(
-        "following #{uri} did not redirect", uri) unless followable?(location)
+      unless followable?(location)
+        fail BadShortenedURI.new(
+          "following #{uri} did not redirect", uri
+        )
+      end
 
       location
     end
@@ -53,7 +59,8 @@ module Embiggen
       Addressable::URI.parse(location).absolute?
     rescue Addressable::URI::InvalidURIError => e
       raise BadShortenedURI.new(
-        "following #{uri} returns an invalid URI: #{e}", uri)
+        "following #{uri} returns an invalid URI: #{e}", uri
+      )
     end
   end
 end

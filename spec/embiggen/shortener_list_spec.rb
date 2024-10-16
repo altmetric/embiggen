@@ -9,7 +9,7 @@ RSpec.describe Embiggen::ShortenerList do
     end
 
     it 'converts a given enumerable to a set' do
-      list = described_class.new(%w(a.com a.com))
+      list = described_class.new(%w[a.com a.com])
 
       expect(list.size).to eq(1)
     end
@@ -17,19 +17,19 @@ RSpec.describe Embiggen::ShortenerList do
 
   describe '#include?' do
     it 'returns true if a URL host is on the whitelist' do
-      list = described_class.new(%w(bit.ly))
+      list = described_class.new(%w[bit.ly])
 
       expect(list).to include(URI('http://bit.ly/foo'))
     end
 
     it 'returns false if a URL host is not on the whitelist' do
-      list = described_class.new(%w(bit.ly))
+      list = described_class.new(%w[bit.ly])
 
       expect(list).to_not include(URI('http://www.altmetric.com'))
     end
 
     it 'returns true if a URL host without a subdomain is on the whitelist' do
-      list = described_class.new(%w(bit.ly))
+      list = described_class.new(%w[bit.ly])
 
       expect(list).to include(URI('http://www.bit.ly/foo'))
     end
@@ -53,7 +53,7 @@ RSpec.describe Embiggen::ShortenerList do
 
   describe '#size' do
     it 'returns the number of domains in the list' do
-      list = described_class.new(%w(bit.ly ow.ly))
+      list = described_class.new(%w[bit.ly ow.ly])
 
       expect(list.size).to eq(2)
     end
@@ -61,7 +61,7 @@ RSpec.describe Embiggen::ShortenerList do
 
   describe '#delete' do
     it 'removes domains from the list' do
-      list = described_class.new(%w(bit.ly))
+      list = described_class.new(%w[bit.ly])
       list.delete('bit.ly')
 
       expect(list).to be_empty
@@ -70,15 +70,15 @@ RSpec.describe Embiggen::ShortenerList do
 
   describe '#+' do
     it 'appends a list of domains to the existing one' do
-      list = described_class.new(%w(bit.ly))
-      list += %w(a.com)
+      list = described_class.new(%w[bit.ly])
+      list += %w[a.com]
 
       expect(list).to include(URI('http://a.com/foo'))
     end
 
     it 'can combine two lists' do
-      list = described_class.new(%w(bit.ly))
-      list += described_class.new(%w(a.com))
+      list = described_class.new(%w[bit.ly])
+      list += described_class.new(%w[a.com])
 
       expect(list).to include(URI('http://a.com/foo'))
     end

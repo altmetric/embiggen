@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'set'
 require 'embiggen/shortener_list'
 
 module Embiggen
@@ -22,7 +21,7 @@ module Embiggen
     end
 
     def self.shorteners_from_file
-      file_path = File.expand_path('../../../shorteners.txt', __FILE__)
+      file_path = File.expand_path('../../shorteners.txt', __dir__)
       File.readlines(file_path).map(&:chomp)
     end
   end
