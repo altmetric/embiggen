@@ -5520,7 +5520,6 @@ myurls.ca
 myveg.as
 myw.lu
 mz.cm
-mz.cm,
 mzd.bz
 mzgo.co
 mzl.la
