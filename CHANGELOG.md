@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.0] - 2024-11-20
+### Changed
+- Added 949 new shorteners
+- Added 241 new Bitly branded domain shorteners
+- Removed 1 duplicate `mz.cm,`
+
 ## UNRELEASED - 2024-10-15
 ### Changed
 - Modernise dev dependencies
