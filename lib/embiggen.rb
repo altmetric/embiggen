@@ -10,5 +10,6 @@ module Embiggen
     yield(Configuration)
   end
 
-  module_function :URI, :configure
+  module_function :URI
+  module_function :configure
 end

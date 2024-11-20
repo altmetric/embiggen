@@ -2,19 +2,19 @@
 
 A Ruby library to expand shortened URLs.
 
-**Current version:** 1.5.0  
+**Current version:** 1.6.0
 **Supported Ruby versions:** >= 2.7
 
 ## Installation
 
 ```
-gem install embiggen -v '~> 1.5'
+gem install embiggen -v '~> 1.6'
 ```
 
 Or, in your `Gemfile`:
 
 ```ruby
-gem 'embiggen', '~> 1.5'
+gem 'embiggen', '~> 1.6'
 ```
 
 ## Usage
@@ -203,6 +203,7 @@ Override the following settings:
   * [Bit.do's](http://bit.do/list-of-url-shorteners.php) curated list
   * [Hongkiat's](http://www.hongkiat.com/blog/url-shortening-services-the-ultimate-list/)
   curated list
+  * [PeterDaveHello's](https://github.com/PeterDaveHello/url-shorteners) curated list
   * A list of branded [Bitly](https://bitly.com/) domains collected by Altmetric
 
 ## License
