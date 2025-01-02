@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.7.0] - 2025-01-01
+### Changed
+- Added 1 new shortener (`go.bsky.app`)
+
 ## [1.6.0] - 2024-11-20
 ### Changed
 - Added 949 new shorteners
