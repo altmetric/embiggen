@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.10.0] - 2026-04-27
+
+### Added
+
+- Support for non-redirect shorteners (e.g. `lnkd.in`, `ebx.sh`) that serve
+  an HTML page instead of issuing an HTTP redirect; the destination URL is
+  extracted via a configurable CSS selector
+
+### Fixed
+
+- `require 'set'` was missing from `ShortenerList`, causing a `NameError` on
+  Ruby 3.2+ where `Set` is no longer auto-loaded
+- Domain strings were not escaped before being interpolated into regexes in
+  `ShortenerList` and `NonRedirectShortenerList`, so a dot in a domain name
+  (e.g. `bit.ly`) would match any character rather than a literal dot
+- `ShortenerList#+` re-processed already-compiled `Regexp` patterns through
+  `host_pattern`, double-wrapping them and raising a `TypeError` once
+  `Regexp.escape` was introduced
+
 ## [1.9.0] - 2026-04-23
 
 ### Changed
@@ -112,6 +131,11 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 - First stable version of Embiggen and its API for expanding shortened links.
 
+[1.10.0]: https://github.com/altmetric/embiggen/releases/tag/v1.10.0
+[1.9.0]: https://github.com/altmetric/embiggen/releases/tag/v1.9.0
+[1.8.0]: https://github.com/altmetric/embiggen/releases/tag/v1.8.0
+[1.7.0]: https://github.com/altmetric/embiggen/releases/tag/v1.7.0
+[1.6.0]: https://github.com/altmetric/embiggen/releases/tag/v1.6.0
 [1.5.0]: https://github.com/altmetric/embiggen/releases/tag/v1.5.0
 [1.4.0]: https://github.com/altmetric/embiggen/releases/tag/v1.4.0
 [1.3.0]: https://github.com/altmetric/embiggen/releases/tag/v1.3.0

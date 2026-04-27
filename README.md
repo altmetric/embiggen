@@ -2,7 +2,7 @@
 
 A Ruby library to expand shortened URLs.
 
-**Current version:** 1.9.0  
+**Current version:** 1.10.0  
 **Supported Ruby versions:** >= 2.7
 
 ## Installation
