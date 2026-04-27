@@ -33,6 +33,12 @@ RSpec.describe Embiggen::ShortenerList do
 
       expect(list).to include(URI('http://www.bit.ly/foo'))
     end
+
+    it 'returns false if a URL host only matches due to an unescaped dot' do
+      list = described_class.new(%w[i.ea.com])
+
+      expect(list).not_to include(URI('http://www.ikea.com/foo'))
+    end
   end
 
   describe '#<<' do

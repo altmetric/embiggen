@@ -33,7 +33,7 @@ module Embiggen
     def_delegators :domains, :size, :empty?, :each
 
     def host_pattern(domain)
-      /\b#{domain}\z/i
+      /\b#{Regexp.escape(domain)}\z/i
     end
   end
 end
