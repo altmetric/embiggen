@@ -17,7 +17,15 @@ module Embiggen
     end
 
     def +(other)
-      self.class.new(domains + other)
+      other_patterns = if other.respond_to?(:domains)
+                         other.domains
+                       else
+                         Set.new(other.map { |d| host_pattern(d) })
+                       end
+
+      self.class.allocate.tap do |result|
+        result.instance_variable_set(:@domains, domains | other_patterns)
+      end
     end
 
     def <<(domain)

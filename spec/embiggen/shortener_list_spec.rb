@@ -88,6 +88,20 @@ RSpec.describe Embiggen::ShortenerList do
 
       expect(list).to include(URI('http://a.com/foo'))
     end
+
+    it 'retains the original domains when combining two lists' do
+      list = described_class.new(%w[bit.ly])
+      list += described_class.new(%w[a.com])
+
+      expect(list).to include(URI('http://bit.ly/foo'))
+    end
+
+    it 'returns a list with the combined size' do
+      list = described_class.new(%w[bit.ly])
+      list += described_class.new(%w[a.com])
+
+      expect(list.size).to eq(2)
+    end
   end
 
   it 'is enumerable for 1.8 compatiblity' do
