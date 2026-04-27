@@ -1,5 +1,6 @@
 require 'embiggen/configuration'
 require 'embiggen/error'
+require 'embiggen/html_client'
 require 'embiggen/http_client'
 require 'addressable/uri'
 require 'uri'
@@ -44,6 +45,14 @@ module Embiggen
       timeout = request_options.fetch(:timeout) { Configuration.timeout }
 
       location = http_client.follow(timeout)
+
+      if location.nil?
+        non_redirect_shorteners = Configuration.non_redirect_shorteners
+        if non_redirect_shorteners.supported?(uri)
+          location = HtmlClient.new(uri).follow(timeout, non_redirect_shorteners.selector_for(uri))
+        end
+      end
+
       unless followable?(location)
         fail BadShortenedURI.new(
           "following #{uri} did not redirect", uri
