@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'set'
 
 module Embiggen
   class ShortenerList
@@ -16,7 +17,15 @@ module Embiggen
     end
 
     def +(other)
-      self.class.new(domains + other)
+      other_patterns = if other.respond_to?(:domains)
+                         other.domains
+                       else
+                         Set.new(other.map { |d| host_pattern(d) })
+                       end
+
+      self.class.allocate.tap do |result|
+        result.instance_variable_set(:@domains, domains | other_patterns)
+      end
     end
 
     def <<(domain)
@@ -32,7 +41,7 @@ module Embiggen
     def_delegators :domains, :size, :empty?, :each
 
     def host_pattern(domain)
-      /\b#{domain}\z/i
+      /\b#{Regexp.escape(domain)}\z/i
     end
   end
 end

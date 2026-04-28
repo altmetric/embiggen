@@ -209,6 +209,26 @@ module Embiggen
         expect(uri.expand).to eq(URI('http://www.altmetric.com'))
       end
 
+      it 'expands non-redirect shorteners by parsing HTML' do
+        stub_request(:get, 'https://lnkd.in/eB25Z2yS')
+          .to_return(
+            status: 200,
+            body: '<html><body><main><a href="https://example.com/article">https://example.com/article</a></main></body></html>',
+            headers: { 'Content-Type' => 'text/html' }
+          )
+        uri = described_class.new(URI('https://lnkd.in/eB25Z2yS'))
+
+        expect(uri.expand).to eq(URI('https://example.com/article'))
+      end
+
+      it 'raises an error if the non-redirect shortener HTML contains no matching element' do
+        stub_request(:get, 'https://lnkd.in/bad')
+          .to_return(status: 200, body: '<html><body><p>No link</p></body></html>')
+        uri = described_class.new(URI('https://lnkd.in/bad'))
+
+        expect { uri.expand }.to raise_error(BadShortenedURI)
+      end
+
       after do
         Configuration.redirects = 5
         Configuration.shorteners.delete('altmetric.it')

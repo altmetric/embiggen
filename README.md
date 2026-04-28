@@ -2,7 +2,7 @@
 
 A Ruby library to expand shortened URLs.
 
-**Current version:** 1.9.0  
+**Current version:** 1.10.0  
 **Supported Ruby versions:** >= 2.7
 
 ## Installation
@@ -58,6 +58,40 @@ Embiggen.configure do |config|
   config.timeout = 5
   config.redirects = 2
   config.shorteners += %w(myshorten.er anoth.er)
+end
+```
+
+## Non-redirect shorteners
+
+Some URL shorteners (such as [LinkedIn's lnkd.in](https://lnkd.in)) do not
+issue HTTP redirects when used with an external domain.
+Instead, they serve an HTML page containing the
+destination URL in a known element. Embiggen supports these by fetching the
+page and extracting the link via a CSS selector.
+
+Embiggen ships with a default list of known non-redirect shorteners in
+[`non_redirect_shorteners.yml`](https://github.com/altmetric/embiggen/blob/master/non_redirect_shorteners.yml),
+mapping each domain to the CSS selector used to locate the destination link.
+
+```ruby
+# Expanding a LinkedIn shortened URL
+Embiggen::URI('https://lnkd.in/eB25Z2yS').expand
+#=> #<URI::HTTPS https://example.com/article>
+```
+
+You can add your own non-redirect shorteners or remove existing ones via
+`Embiggen.configure`:
+
+```ruby
+Embiggen.configure do |config|
+  # Add a new non-redirect shortener
+  config.non_redirect_shorteners['myshorten.er'] = 'article a.destination'
+
+  # Remove a specific shortener
+  config.non_redirect_shorteners.delete('lnkd.in')
+
+  # Opt out of the feature entirely
+  config.non_redirect_shorteners.clear
 end
 ```
 
@@ -191,7 +225,9 @@ Override the following settings:
 * `redirects`: the default number of redirects to follow (can be overridden by
   passing options to `Embiggen::URI#expand`);
 * `shorteners`: the list of domains of shortening services, c.f.
-  [Shorteners](#shorteners).
+  [Shorteners](#shorteners);
+* `non_redirect_shorteners`: the mapping of non-redirect shortener domains to
+  CSS selectors, c.f. [Non-redirect shorteners](#non-redirect-shorteners).
 
 ## Acknowledgements
 
