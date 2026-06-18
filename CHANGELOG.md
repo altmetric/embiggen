@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.11.0] - 2026-06-18
+
+### Changed
+
+- Added 1 new shortener (`edge.prnewswire.com`). Not technically a shortener,
+but it does redirect to a different domain and is therefore useful to expand.
+
 ## [1.10.0] - 2026-04-27
 
 ### Added
