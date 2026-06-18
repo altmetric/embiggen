@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'embiggen'
-  s.version = '1.10.0'
+  s.version = '1.11.0'
   s.summary = 'A library to expand shortened URLs'
   s.description = <<-EOF
     A library to expand shortened URIs, respecting timeouts, following
