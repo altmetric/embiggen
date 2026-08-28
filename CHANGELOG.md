@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.13.0] - 2026-08-28
+
+### Added
+
+- Added 1 new shortener (`twp.ai`).
+
 ## [1.12.0] - 2026-07-02
 
 ### Added
